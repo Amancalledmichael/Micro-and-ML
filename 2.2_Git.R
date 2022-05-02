@@ -25,7 +25,8 @@ trunctable <- coef(summary(trunc))
 #3)
 # Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. 
 # The regression equation can be interpreted as how family care affects labour supply of women of same
-# age, education and experience living in the same city 
+# age, education and experience living in the same 
+#sdjsidjs
 
 #4)
 income<-lm(hours ~ faminc, data = labsupp)
