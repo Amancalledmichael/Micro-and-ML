@@ -29,6 +29,7 @@ trunctable <- coef(summary(trunc))
 #sdjsidjs
 #break
 #awdad
+# lucas schreibt
 
 #4)
 income<-lm(hours ~ faminc, data = labsupp)
