@@ -19,11 +19,13 @@ tobittable <- coef(summary(tobit))
 library(truncreg)
 trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq, data = labsupp)
 summary(trunc)
-trunctable <- coef(summary(tobit))
+trunctable <- coef(summary(trunc))
 
 
 #3)
-#Wage is highly edogenous to hours. Hours affect wages and vice versa. "bad control" problem. The regression equation can be interpreted as how family care affects labour supply of women 
+# Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. 
+# The regression equation can be interpreted as how family care affects labour supply of women of same
+# age, education and experience living in the same city 
 
 #4)
 income<-lm(hours ~ faminc, data = labsupp)
