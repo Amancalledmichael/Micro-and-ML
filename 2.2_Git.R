@@ -37,12 +37,14 @@ summary(income)
 library(margins)
 margins(income)
 
+
 incomecond<-lm(hours ~ faminc, data = subset(labsupp, inlf==1))
 summary(incomecond)
 margins(incomecond)
 
-tobitwage<-tobit(hours ~ wage, data = labsupp)
+tobitinc<-tobit(hours ~ faminc, data = labsupp)
 summary(tobitwage)
 
-OLSwage<-lm(hours ~ wage, data=labsupp)
-margins(OLSwage)
+tobitinccond<-tobit(hours ~ faminc, subset(labsupp, inlf==1)
+summary(tobitinccond)
+
