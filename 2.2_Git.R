@@ -27,6 +27,8 @@ trunctable <- coef(summary(trunc))
 # The regression equation can be interpreted as how family care affects labour supply of women of same
 # age, education and experience living in the same 
 #sdjsidjs
+#break
+#awdad
 
 #4)
 income<-lm(hours ~ faminc, data = labsupp)
