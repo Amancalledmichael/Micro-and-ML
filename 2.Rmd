@@ -8,23 +8,26 @@ library(AER)
 library(truncreg)
 library(margins)
 
-getwd() 
 #R Markdown files automatically set the wd to their directory
 #Because of that the working directory should be the same as the directory of this file 
+getwd() 
 
 labsupp <- read.csv(file = 'mroz_wool.csv')
 head(labsupp)
 ```
 
+&nbsp;  
 
-#OLS
+# OLS
 ```{r}
 OLS <- lm(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
           data = labsupp)
 summary(OLS)
 ```
 
-#1)
+&nbsp;  
+
+# 1)
 ```{r}
 tobit <- tobit(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
                data = labsupp)
@@ -32,18 +35,24 @@ summary(tobit)
 tobittable <- coef(summary(tobit))
 ```
 
-#2)
+&nbsp;  
+
+# 2)
 ```{r}
 trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
                   data = labsupp)
 summary(trunc)
 trunctable <- coef(summary(trunc))
 ```
+  
+&nbsp;  
 
-#3)
+# 3)
 Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. The regression equation can be interpreted as how family care affects labour supply of women of same age, education and experience living in the same 
 
-#4)
+&nbsp;  
+
+# 4)
 ```{r}
 income <- lm(hours ~ faminc, data = labsupp)
 summary(income)
@@ -58,7 +67,7 @@ margins(incomecond)
 tobitinc <- tobit(hours ~ faminc, data = labsupp)
 summary(tobitinc)
 
-tobitinccond <- tobit(hours ~ faminc, subset(labsupp, inlf == 1))
+tobitinccond <- tobit(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(tobitinccond)
 ```
 
