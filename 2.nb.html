@@ -1770,21 +1770,55 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShBRVIpXG5saWJyYXJ5KHRydW5jcmVnKVxubGlicmFyeShtYXJnaW5zKVxuXG5nZXR3ZCgpIFxuYGBgIn0= -->
-<pre class="r"><code>library(AER)
-library(truncreg)
-library(margins)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShBRVIpXG5gYGAifQ== -->
+<pre class="r"><code>library(AER)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTGFkZSBuw7Z0aWdlcyBQYWtldDogY2FyXG5MYWRlIG7DtnRpZ2VzIFBha2V0OiBjYXJEYXRhXG5MYWRlIG7DtnRpZ2VzIFBha2V0OiBsbXRlc3RcbkxhZGUgbsO2dGlnZXMgUGFrZXQ6IHpvb1xuXG5BdHRhY2hlIFBha2V0OiDigJh6b2/igJlcblxuRGllIGZvbGdlbmRlbiBPYmpla3RlIHNpbmQgbWFza2llcnQgdm9uIOKAmHBhY2thZ2U6YmFzZeKAmTpcblxuICAgIGFzLkRhdGUsIGFzLkRhdGUubnVtZXJpY1xuXG5MYWRlIG7DtnRpZ2VzIFBha2V0OiBzYW5kd2ljaFxuTGFkZSBuw7Z0aWdlcyBQYWtldDogc3Vydml2YWxcbiJ9 -->
+<pre><code>Lade nötiges Paket: car
+Lade nötiges Paket: carData
+Lade nötiges Paket: lmtest
+Lade nötiges Paket: zoo
 
+Attache Paket: ‘zoo’
+
+Die folgenden Objekte sind maskiert von ‘package:base’:
+
+    as.Date, as.Date.numeric
+
+Lade nötiges Paket: sandwich
+Lade nötiges Paket: survival</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0cnVuY3JlZylcbmBgYCJ9 -->
+<pre class="r"><code>library(truncreg)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTGFkZSBuw7Z0aWdlcyBQYWtldDogbWF4TGlrXG5MYWRlIG7DtnRpZ2VzIFBha2V0OiBtaXNjVG9vbHNcblxuUGxlYXNlIGNpdGUgdGhlICdtYXhMaWsnIHBhY2thZ2UgYXM6XG5IZW5uaW5nc2VuLCBBcm5lIGFuZCBUb29tZXQsIE90dCAoMjAxMSkuIG1heExpazogQSBwYWNrYWdlIGZvciBtYXhpbXVtIGxpa2VsaWhvb2QgZXN0aW1hdGlvbiBpbiBSLiBDb21wdXRhdGlvbmFsIFN0YXRpc3RpY3MgMjYoMyksIDQ0My00NTguIERPSSAxMC4xMDA3L3MwMDE4MC0wMTAtMDIxNy0xLlxuXG5JZiB5b3UgaGF2ZSBxdWVzdGlvbnMsIHN1Z2dlc3Rpb25zLCBvciBjb21tZW50cyByZWdhcmRpbmcgdGhlICdtYXhMaWsnIHBhY2thZ2UsIHBsZWFzZSB1c2UgYSBmb3J1bSBvciAndHJhY2tlcicgYXQgbWF4TGlrJ3MgUi1Gb3JnZSBzaXRlOlxuaHR0cHM6Ly9yLWZvcmdlLnItcHJvamVjdC5vcmcvcHJvamVjdHMvbWF4bGlrL1xuIn0= -->
+<pre><code>Lade nötiges Paket: maxLik
+Lade nötiges Paket: miscTools
+
+Please cite the &#39;maxLik&#39; package as:
+Henningsen, Arne and Toomet, Ott (2011). maxLik: A package for maximum likelihood estimation in R. Computational Statistics 26(3), 443-458. DOI 10.1007/s00180-010-0217-1.
+
+If you have questions, suggestions, or comments regarding the &#39;maxLik&#39; package, please use a forum or &#39;tracker&#39; at maxLik&#39;s R-Forge site:
+https://r-forge.r-project.org/projects/maxlik/</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtYXJnaW5zKVxuYGBgIn0= -->
+<pre class="r"><code>library(margins)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ2RhdGEudGFibGUnOlxuICBtZXRob2QgICAgICAgICAgIGZyb21cbiAgcHJpbnQuZGF0YS50YWJsZSAgICAgXG4ifQ== -->
+<pre><code>Registered S3 method overwritten by &#39;data.table&#39;:
+  method           from
+  print.data.table     </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1IgTWFya2Rvd24gZmlsZXMgYXV0b21hdGljYWxseSBzZXQgdGhlIHdkIHRvIHRoZWlyIGRpcmVjdG9yeVxuI0JlY2F1c2Ugb2YgdGhhdCB0aGUgd29ya2luZyBkaXJlY3Rvcnkgc2hvdWxkIGJlIHRoZSBzYW1lIGFzIHRoZSBkaXJlY3Rvcnkgb2YgdGhpcyBmaWxlIFxuZ2V0d2QoKSBcbmBgYCJ9 -->
+<pre class="r"><code>#R Markdown files automatically set the wd to their directory
+#Because of that the working directory should be the same as the directory of this file 
 getwd() </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQzovVXNlcnMvZ25pY28vRG9jdW1lbnRzL01pY3JvLWFuZC1NTFwiXG4ifQ== -->
 <pre><code>[1] &quot;C:/Users/gnico/Documents/Micro-and-ML&quot;</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1IgTWFya2Rvd24gZmlsZXMgYXV0b21hdGljYWxseSBzZXQgdGhlIHdkIHRvIHRoZWlyIGRpcmVjdG9yeVxuI0JlY2F1c2Ugb2YgdGhhdCB0aGUgd29ya2luZyBkaXJlY3Rvcnkgc2hvdWxkIGJlIHRoZSBzYW1lIGFzIHRoZSBkaXJlY3Rvcnkgb2YgdGhpcyBmaWxlIFxuXG5sYWJzdXBwIDwtIHJlYWQuY3N2KGZpbGUgPSAnbXJvel93b29sLmNzdicpXG5oZWFkKGxhYnN1cHApXG5gYGAifQ== -->
-<pre class="r"><code>#R Markdown files automatically set the wd to their directory
-#Because of that the working directory should be the same as the directory of this file 
-
-labsupp &lt;- read.csv(file = &#39;mroz_wool.csv&#39;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFic3VwcCA8LSByZWFkLmNzdihmaWxlID0gJ21yb3pfd29vbC5jc3YnKVxuaGVhZChsYWJzdXBwKVxuYGBgIn0= -->
+<pre class="r"><code>labsupp &lt;- read.csv(file = &#39;mroz_wool.csv&#39;)
 head(labsupp)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6MjIsInN1bW1hcnkiOltdfSwicmRmIjoiSDRzSUFBQUFBQUFBQm0xVFhVZ1VVUlMrdTdxejdyU3ByWC9ZajVtbWJVaUx1U3FLRDNNbHN4SWhNRTBETWNiZFdYZHpkM2FiblVVTFFvV29JQ3FLcEFjcDZNZDg3VWtwZ2tCOWlMSWZLWXVlb3FUTWgrakhTb3V5enN6T25iME5YdmoyT3ovM25Idk9tYk5OZFcxdXRvMUZDQ1doWkRQOFdrQkVscGJtK20xVlNMVWdFMHBHTm9WN3daMEJRalpnTllCUm5TdEQ4ek1OQUlpejNnWHpmWkR6UWY1c2lFY3JNUEVyeDZ4V0Y0Zlo0SWQ4S0E5UUNDZ0FiQVJVVW42N0Fha1VNNWg5L21kaGRPYzE3a2ZWcC9JWFZ6dXh3M1hwek43WE5keVgwenNHQjVnaTdPaEEwMk01QjdCamNUN3RwN1JMajdPNDFhTnp1dlA3K0xuMnJaaU5GNGZ0VThwNWhCMXhUdFREWGtUSXhzUkxzUFlEbnNLUTA2bDZDN1IrbklBS3JiOXFRejgyalZtTlYrbDFwVzg0ZG05MzN4VE9mNXNybER5YndQYmhldlptWXltMnQvaWUxSDdOd0p1MSt0YStIRGt4WGp5UXlNdU5JdFFDYnphVklyVCtPRUtIYmlEVXVJWGs1ZWF5VDVhWTdRM2NPL2pkYzZlRGU1OC9PVFE4Mjh6TnEyb0ZOenU3Yi9IeHF4eGlOOVJyTlhBcTViY2FrRW94Z3pPMWVvczF6alJ3b2NaNWlCeDZiMHdvY1F4N3FlWlhWajJOcW1PVC9tN1I5RUpuNThNUjdPNWJ2aVdQU05pWkdjN2l6MmZoZGU2eTRvbmJUbHllZS9sVXpmVTZYRGcyODVGWlh0TG50TkQrSURMOXk4M05NSzFsV2IvSHVhWHFENU5IYzc1eFk0TUhleXVHSnJnbFQ3Zk5zMzhOdHpUWGV1R3MvUXBWenlRZ0YvQUdvSHlsN2JBWHRZWS9vRVhrUTBJVUJHVmhzalZqY2tBTStzZ0ZmemdtUlRYRjJoM3dSb055SmExMkNVUk40cnNFa2tId3hqeEU3a25ZclpJUW9WVEdINHY2OWV5S1JsMEZqY3FpcUhTa2p3OEZST0pNQ3NtU0pxYUV3cktmaWt2eDhmL3B5VEZSQ0JIWkU1Q1BrRDZGM29pZ0p4RjdBajRoa2Q4U3BIdFFiMFlQR3lacGs4STlMakpONVJPWSsrTnJ3aGhIN2dueVVUSnlZbVM5dk15N2ZCTEVnN1pzQ0xHR0kzSWdMRUtRT1VQN3VDeTFqSFFpazJRd1dLS0NISXRRRVdSbFRWb21JbWZISHpYLzFSSXc1SEdZUXpEbTFTY3ZpRjBCVWRBbnczY0tRVTFKaFJHb0UzQkZwSUFvazliQUduWEpZWmtuOTFoUE9FZ3Nhck5vK1IvUkY3eWhOQVlBQUE9PSJ9 -->
@@ -1801,37 +1835,39 @@ head(labsupp)</code></pre>
 <h1>OLS</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuT0xTIDwtIGxtKGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIGV4cGVyICsgZXhwZXJzcSxcbiAgICAgICAgICBkYXRhID0gbGFic3VwcClcbnN1bW1hcnkoT0xTKVxuYGBgIn0= -->
-<pre class="r"><code>OLS &lt;- lm(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuT0xTIDwtIGxtKGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgZmFtaW5jICsgY2l0eSArIGV4cGVyICsgZXhwZXJzcSxcbiAgICAgICAgICBkYXRhID0gbGFic3VwcClcbnN1bW1hcnkoT0xTKVxuYGBgIn0= -->
+<pre class="r"><code>OLS &lt;- lm(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq,
           data = labsupp)
 summary(OLS)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIFxuICAgIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cblJlc2lkdWFsczpcbiAgICBNaW4gICAgICAxUSAgTWVkaWFuICAgICAgM1EgICAgIE1heCBcbi0xNTQwLjYgIC01MjYuNiAgLTEzNi4yICAgNTM1LjIgIDM1MjQuMSBcblxuQ29lZmZpY2llbnRzOlxuICAgICAgICAgICAgIEVzdGltYXRlIFN0ZC4gRXJyb3IgdCB2YWx1ZSBQcig+fHR8KSAgICBcbihJbnRlcmNlcHQpIDEzNTkuMDc2MyAgIDI2OS45NjY3ICAgNS4wMzQgNi4wMmUtMDcgKioqXG5raWRzbHQ2ICAgICAtNDQ2LjA1NjEgICAgNTguODM5NiAgLTcuNTgxIDEuMDJlLTEzICoqKlxua2lkc2dlNiAgICAgIC0zNC4wOTQxICAgIDIzLjE3MjYgIC0xLjQ3MSAgIDAuMTQxNiAgICBcbmFnZSAgICAgICAgICAtMzEuMjcxMSAgICAgNC4zMjM0ICAtNy4yMzMgMS4xOGUtMTIgKioqXG5lZHVjICAgICAgICAgIDI0LjYwMDQgICAgMTIuNDg0NyAgIDEuOTcwICAgMC4wNDkyICogIFxuY2l0eSAgICAgICAgIC0zOC4xMzI0ICAgIDU4LjQ2ODQgIC0wLjY1MiAgIDAuNTE0NSAgICBcbmV4cGVyICAgICAgICAgNjYuOTk2MCAgICAgOS45NTg3ICAgNi43MjcgMy40NGUtMTEgKioqXG5leHBlcnNxICAgICAgIC0wLjcwODIgICAgIDAuMzI1NiAgLTIuMTc1ICAgMC4wMjk5ICogIFxuLS0tXG5TaWduaWYuIGNvZGVzOiAgMCDigJgqKirigJkgMC4wMDEg4oCYKirigJkgMC4wMSDigJgq4oCZIDAuMDUg4oCYLuKAmSAwLjEg4oCYIOKAmSAxXG5cblJlc2lkdWFsIHN0YW5kYXJkIGVycm9yOiA3NTAuOSBvbiA3NDUgZGVncmVlcyBvZiBmcmVlZG9tXG5NdWx0aXBsZSBSLXNxdWFyZWQ6ICAwLjI2NDIsXHRBZGp1c3RlZCBSLXNxdWFyZWQ6ICAwLjI1NzMgXG5GLXN0YXRpc3RpYzogMzguMjIgb24gNyBhbmQgNzQ1IERGLCAgcC12YWx1ZTogPCAyLjJlLTE2XG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgZmFtaW5jICsgXG4gICAgY2l0eSArIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cblJlc2lkdWFsczpcbiAgICBNaW4gICAgICAxUSAgTWVkaWFuICAgICAgM1EgICAgIE1heCBcbi0xNjgwLjkgIC01MTkuOCAgLTExOS45ICAgNTAxLjYgIDM1MTYuMyBcblxuQ29lZmZpY2llbnRzOlxuICAgICAgICAgICAgICBFc3RpbWF0ZSBTdGQuIEVycm9yIHQgdmFsdWUgUHIoPnx0fCkgICAgXG4oSW50ZXJjZXB0KSAgMS40NzFlKzAzICAyLjY2NGUrMDIgICA1LjUyMCA0LjY3ZS0wOCAqKipcbmtpZHNsdDYgICAgIC00LjM2N2UrMDIgIDUuNzg5ZSswMSAgLTcuNTQ0IDEuMzNlLTEzICoqKlxua2lkc2dlNiAgICAgLTMuNjgyZSswMSAgMi4yNzllKzAxICAtMS42MTUgICAwLjEwNjcgICAgXG5hZ2UgICAgICAgICAtMy4zMjdlKzAxICA0LjI2OWUrMDAgIC03Ljc5MiAyLjIyZS0xNCAqKipcbmVkdWMgICAgICAgICA4LjcwMGUtMDEgIDEuMzEyZSswMSAgIDAuMDY2ICAgMC45NDcxICAgIFxuZmFtaW5jICAgICAgIDEuMjUyZS0wMiAgMi40NDFlLTAzICAgNS4xMzEgMy42OWUtMDcgKioqXG5jaXR5ICAgICAgICAtOS40NzNlKzAxICA1Ljg1NWUrMDEgIC0xLjYxOCAgIDAuMTA2MSAgICBcbmV4cGVyICAgICAgICA2Ljc4MWUrMDEgIDkuNzk1ZSswMCAgIDYuOTIzIDkuNTRlLTEyICoqKlxuZXhwZXJzcSAgICAgLTYuNzkzZS0wMSAgMy4yMDNlLTAxICAtMi4xMjEgICAwLjAzNDMgKiAgXG4tLS1cblNpZ25pZi4gY29kZXM6ICBcbjAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogNzM4LjQgb24gNzQ0IGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC4yODk0LFx0QWRqdXN0ZWQgUi1zcXVhcmVkOiAgMC4yODE3IFxuRi1zdGF0aXN0aWM6IDM3Ljg3IG9uIDggYW5kIDc0NCBERiwgIHAtdmFsdWU6IDwgMi4yZS0xNlxuIn0= -->
 <pre><code>
 Call:
-lm(formula = hours ~ kidslt6 + kidsge6 + age + educ + city + 
-    exper + expersq, data = labsupp)
+lm(formula = hours ~ kidslt6 + kidsge6 + age + educ + faminc + 
+    city + exper + expersq, data = labsupp)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--1540.6  -526.6  -136.2   535.2  3524.1 
+-1680.9  -519.8  -119.9   501.6  3516.3 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 1359.0763   269.9667   5.034 6.02e-07 ***
-kidslt6     -446.0561    58.8396  -7.581 1.02e-13 ***
-kidsge6      -34.0941    23.1726  -1.471   0.1416    
-age          -31.2711     4.3234  -7.233 1.18e-12 ***
-educ          24.6004    12.4847   1.970   0.0492 *  
-city         -38.1324    58.4684  -0.652   0.5145    
-exper         66.9960     9.9587   6.727 3.44e-11 ***
-expersq       -0.7082     0.3256  -2.175   0.0299 *  
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  1.471e+03  2.664e+02   5.520 4.67e-08 ***
+kidslt6     -4.367e+02  5.789e+01  -7.544 1.33e-13 ***
+kidsge6     -3.682e+01  2.279e+01  -1.615   0.1067    
+age         -3.327e+01  4.269e+00  -7.792 2.22e-14 ***
+educ         8.700e-01  1.312e+01   0.066   0.9471    
+faminc       1.252e-02  2.441e-03   5.131 3.69e-07 ***
+city        -9.473e+01  5.855e+01  -1.618   0.1061    
+exper        6.781e+01  9.795e+00   6.923 9.54e-12 ***
+expersq     -6.793e-01  3.203e-01  -2.121   0.0343 *  
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 750.9 on 745 degrees of freedom
-Multiple R-squared:  0.2642,    Adjusted R-squared:  0.2573 
-F-statistic: 38.22 on 7 and 745 DF,  p-value: &lt; 2.2e-16</code></pre>
+Residual standard error: 738.4 on 744 degrees of freedom
+Multiple R-squared:  0.2894,    Adjusted R-squared:  0.2817 
+F-statistic: 37.87 on 8 and 744 DF,  p-value: &lt; 2.2e-16</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1841,41 +1877,45 @@ F-statistic: 38.22 on 7 and 745 DF,  p-value: &lt; 2.2e-16</code></pre>
 <h1>1)</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9iaXQgPC0gdG9iaXQoaG91cnMgfiBraWRzbHQ2ICsga2lkc2dlNiArIGFnZSArIGVkdWMgKyBjaXR5ICsgZXhwZXIgKyBleHBlcnNxLFxuICAgICAgICAgICAgICAgZGF0YSA9IGxhYnN1cHApXG5zdW1tYXJ5KHRvYml0KVxuYGBgIn0= -->
-<pre class="r"><code>tobit &lt;- tobit(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9iaXQgPC0gdG9iaXQoaG91cnMgfiBraWRzbHQ2ICsga2lkc2dlNiArIGFnZSArIGVkdWMgKyBmYW1pbmMgKyBjaXR5ICsgZXhwZXIgKyBleHBlcnNxLFxuICAgICAgICAgICAgICAgZGF0YSA9IGxhYnN1cHApXG5zdW1tYXJ5KHRvYml0KVxuYGBgIn0= -->
+<pre class="r"><code>tobit &lt;- tobit(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq,
                data = labsupp)
 summary(tobit)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxudG9iaXQoZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIFxuICAgIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cbk9ic2VydmF0aW9uczpcbiAgICAgICAgIFRvdGFsICBMZWZ0LWNlbnNvcmVkICAgICBVbmNlbnNvcmVkIFJpZ2h0LWNlbnNvcmVkIFxuICAgICAgICAgICA3NTMgICAgICAgICAgICAzMjUgICAgICAgICAgICA0MjggICAgICAgICAgICAgIDAgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgICAgRXN0aW1hdGUgU3RkLiBFcnJvciB6IHZhbHVlIFByKD58enwpICAgIFxuKEludGVyY2VwdCkgMTA0NC41MTc4NiAgNDQ1LjQxODk1ICAgMi4zNDUgMC4wMTkwMjYgKiAgXG5raWRzbHQ2ICAgICAtODkyLjY0MzE1ICAxMTEuNjg0OTYgIC03Ljk5MyAxLjMyZS0xNSAqKipcbmtpZHNnZTYgICAgICAtMjAuMTg0NTMgICAzOC43MDUzNiAgLTAuNTIxIDAuNjAyMDI0ICAgIFxuYWdlICAgICAgICAgIC01Ni44MTQxOCAgICA3LjM2NzU0ICAtNy43MTEgMS4yNGUtMTQgKioqXG5lZHVjICAgICAgICAgIDY4LjkwNDgyICAgMjAuNzMyODQgICAzLjMyMyAwLjAwMDg4OSAqKipcbmNpdHkgICAgICAgICAtNTAuNzE1MzkgICA5Ni43OTczOSAgLTAuNTI0IDAuNjAwMzI1ICAgIFxuZXhwZXIgICAgICAgIDEzNC4xMDk1MCAgIDE3LjMwNDE4ICAgNy43NTAgOS4xOGUtMTUgKioqXG5leHBlcnNxICAgICAgIC0xLjg1MTU2ICAgIDAuNTM5MjIgIC0zLjQzNCAwLjAwMDU5NSAqKipcbkxvZyhzY2FsZSkgICAgIDcuMDI1MDUgICAgMC4wMzcwNyAxODkuNTE5ICA8IDJlLTE2ICoqKlxuLS0tXG5TaWduaWYuIGNvZGVzOiAgMCDigJgqKirigJkgMC4wMDEg4oCYKirigJkgMC4wMSDigJgq4oCZIDAuMDUg4oCYLuKAmSAwLjEg4oCYIOKAmSAxXG5cblNjYWxlOiAxMTI0IFxuXG5HYXVzc2lhbiBkaXN0cmlidXRpb25cbk51bWJlciBvZiBOZXd0b24tUmFwaHNvbiBJdGVyYXRpb25zOiA0IFxuTG9nLWxpa2VsaWhvb2Q6IC0zODIxIG9uIDkgRGZcbldhbGQtc3RhdGlzdGljOiAyNTEuNCBvbiA3IERmLCBwLXZhbHVlOiA8IDIuMjJlLTE2IFxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxudG9iaXQoZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgZmFtaW5jICsgXG4gICAgY2l0eSArIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cbk9ic2VydmF0aW9uczpcbiAgICAgICAgIFRvdGFsICBMZWZ0LWNlbnNvcmVkICAgICBVbmNlbnNvcmVkIFxuICAgICAgICAgICA3NTMgICAgICAgICAgICAzMjUgICAgICAgICAgICA0MjggXG5SaWdodC1jZW5zb3JlZCBcbiAgICAgICAgICAgICAwIFxuXG5Db2VmZmljaWVudHM6XG4gICAgICAgICAgICAgIEVzdGltYXRlIFN0ZC4gRXJyb3IgeiB2YWx1ZSBQcig+fHp8KSAgICBcbihJbnRlcmNlcHQpICAxLjIxMWUrMDMgIDQuMzkxZSswMiAgIDIuNzU4ICAwLjAwNTgyICoqIFxua2lkc2x0NiAgICAgLTguNTM0ZSswMiAgMS4wODdlKzAyICAtNy44NDkgNC4xOGUtMTUgKioqXG5raWRzZ2U2ICAgICAtMi40MzNlKzAxICAzLjgxMGUrMDEgIC0wLjYzOSAgMC41MjMwNSAgICBcbmFnZSAgICAgICAgIC01LjkyM2UrMDEgIDcuMjc3ZSswMCAgLTguMTM5IDMuOTllLTE2ICoqKlxuZWR1YyAgICAgICAgIDMuNTI0ZSswMSAgMi4xNjllKzAxICAgMS42MjUgIDAuMTA0MjYgICAgXG5mYW1pbmMgICAgICAgMS43MzFlLTAyICA0LjA1N2UtMDMgICA0LjI2OCAxLjk3ZS0wNSAqKipcbmNpdHkgICAgICAgIC0xLjM0MGUrMDIgIDkuNzA1ZSswMSAgLTEuMzgxICAwLjE2NzMwICAgIFxuZXhwZXIgICAgICAgIDEuMzM0ZSswMiAgMS42OTllKzAxICAgNy44NTAgNC4xN2UtMTUgKioqXG5leHBlcnNxICAgICAtMS43NjdlKzAwICA1LjI5M2UtMDEgIC0zLjMzOSAgMC4wMDA4NCAqKipcbkxvZyhzY2FsZSkgICA3LjAwNmUrMDAgIDMuNzA0ZS0wMiAxODkuMTI2ICA8IDJlLTE2ICoqKlxuLS0tXG5TaWduaWYuIGNvZGVzOiAgXG4wIOKAmCoqKuKAmSAwLjAwMSDigJgqKuKAmSAwLjAxIOKAmCrigJkgMC4wNSDigJgu4oCZIDAuMSDigJgg4oCZIDFcblxuU2NhbGU6IDExMDMgXG5cbkdhdXNzaWFuIGRpc3RyaWJ1dGlvblxuTnVtYmVyIG9mIE5ld3Rvbi1SYXBoc29uIEl0ZXJhdGlvbnM6IDQgXG5Mb2ctbGlrZWxpaG9vZDogLTM4MTIgb24gMTAgRGZcbldhbGQtc3RhdGlzdGljOiAyNzMuMyBvbiA4IERmLCBwLXZhbHVlOiA8IDIuMjJlLTE2IFxuIn0= -->
 <pre><code>
 Call:
-tobit(formula = hours ~ kidslt6 + kidsge6 + age + educ + city + 
-    exper + expersq, data = labsupp)
+tobit(formula = hours ~ kidslt6 + kidsge6 + age + educ + faminc + 
+    city + exper + expersq, data = labsupp)
 
 Observations:
-         Total  Left-censored     Uncensored Right-censored 
-           753            325            428              0 
+         Total  Left-censored     Uncensored 
+           753            325            428 
+Right-censored 
+             0 
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) 1044.51786  445.41895   2.345 0.019026 *  
-kidslt6     -892.64315  111.68496  -7.993 1.32e-15 ***
-kidsge6      -20.18453   38.70536  -0.521 0.602024    
-age          -56.81418    7.36754  -7.711 1.24e-14 ***
-educ          68.90482   20.73284   3.323 0.000889 ***
-city         -50.71539   96.79739  -0.524 0.600325    
-exper        134.10950   17.30418   7.750 9.18e-15 ***
-expersq       -1.85156    0.53922  -3.434 0.000595 ***
-Log(scale)     7.02505    0.03707 189.519  &lt; 2e-16 ***
+(Intercept)  1.211e+03  4.391e+02   2.758  0.00582 ** 
+kidslt6     -8.534e+02  1.087e+02  -7.849 4.18e-15 ***
+kidsge6     -2.433e+01  3.810e+01  -0.639  0.52305    
+age         -5.923e+01  7.277e+00  -8.139 3.99e-16 ***
+educ         3.524e+01  2.169e+01   1.625  0.10426    
+faminc       1.731e-02  4.057e-03   4.268 1.97e-05 ***
+city        -1.340e+02  9.705e+01  -1.381  0.16730    
+exper        1.334e+02  1.699e+01   7.850 4.17e-15 ***
+expersq     -1.767e+00  5.293e-01  -3.339  0.00084 ***
+Log(scale)   7.006e+00  3.704e-02 189.126  &lt; 2e-16 ***
 ---
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Scale: 1124 
+Scale: 1103 
 
 Gaussian distribution
 Number of Newton-Raphson Iterations: 4 
-Log-likelihood: -3821 on 9 Df
-Wald-statistic: 251.4 on 7 Df, p-value: &lt; 2.22e-16 </code></pre>
+Log-likelihood: -3812 on 10 Df
+Wald-statistic: 273.3 on 8 Df, p-value: &lt; 2.22e-16 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9iaXR0YWJsZSA8LSBjb2VmKHN1bW1hcnkodG9iaXQpKVxuYGBgIn0= -->
 <pre class="r"><code>tobittable &lt;- coef(summary(tobit))</code></pre>
@@ -1888,38 +1928,39 @@ Wald-statistic: 251.4 on 7 Df, p-value: &lt; 2.22e-16 </code></pre>
 <h1>2)</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJ1bmMgPC0gdHJ1bmNyZWcoaG91cnMgfiBraWRzbHQ2ICsga2lkc2dlNiArIGFnZSArIGVkdWMgKyBjaXR5ICsgZXhwZXIgKyBleHBlcnNxLFxuICAgICAgICAgICAgICAgICAgZGF0YSA9IGxhYnN1cHApXG5zdW1tYXJ5KHRydW5jKVxuYGBgIn0= -->
-<pre class="r"><code>trunc &lt;- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJ1bmMgPC0gdHJ1bmNyZWcoaG91cnMgfiBraWRzbHQ2ICsga2lkc2dlNiArIGFnZSArIGVkdWMgKyBmYW1pbmMgKyBjaXR5ICsgZXhwZXIgKyBleHBlcnNxLFxuICAgICAgICAgICAgICAgICAgZGF0YSA9IGxhYnN1cHApXG5zdW1tYXJ5KHRydW5jKVxuYGBgIn0= -->
+<pre class="r"><code>trunc &lt;- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq,
                   data = labsupp)
 summary(trunc)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxudHJ1bmNyZWcoZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIFxuICAgIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cbkJGR1MgbWF4aW1pemF0aW9uIG1ldGhvZFxuNTggaXRlcmF0aW9ucywgMGg6MG06MHMgXG5nJygtSCleLTFnID0gIDg4LjMgXG4gXG5cblxuQ29lZmZpY2llbnRzIDpcbiAgICAgICAgICAgICBFc3RpbWF0ZSBTdGQuIEVycm9yIHQtdmFsdWUgIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgMTM0MS4xMDMwICAxMDc3LjIzODEgIDEuMjQ0OSAgIDAuMjEzMTUgICAgXG5raWRzbHQ2ICAgICAtNjQ3LjMwMzEgICAzMjkuMjkyNSAtMS45NjU3ICAgMC4wNDkzMyAqICBcbmtpZHNnZTYgICAgICAtOTIuMDU3MSAgICA5MC4zNjY1IC0xLjAxODcgICAwLjMwODM0ICAgIFxuYWdlICAgICAgICAgLTE1NS43OTI1ICAgIDI3LjYxODUgLTUuNjQwOSAxLjY5MmUtMDggKioqXG5lZHVjICAgICAgICAgIDIxLjM3NzUgICAgNTMuNDY5MSAgMC4zOTk4ICAgMC42ODkzMCAgICBcbmNpdHkgICAgICAgICAtMzEuNDkzNiAgIDIyMC4xNzU5IC0wLjE0MzAgICAwLjg4NjI2ICAgIFxuZXhwZXIgICAgICAgIDQyOS4xNDk2ICAgIDcyLjI3MjAgIDUuOTM4MCAyLjg4NmUtMDkgKioqXG5leHBlcnNxICAgICAgIC02Ljc4NjcgICAgIDEuNjIxMCAtNC4xODY3IDIuODMwZS0wNSAqKipcbnNpZ21hICAgICAgIDEzMzkuMzczMyAgIDEyNi45Nzc2IDEwLjU0ODEgPCAyLjJlLTE2ICoqKlxuLS0tXG5TaWduaWYuIGNvZGVzOiAgMCDigJgqKirigJkgMC4wMDEg4oCYKirigJkgMC4wMSDigJgq4oCZIDAuMDUg4oCYLuKAmSAwLjEg4oCYIOKAmSAxXG5cbkxvZy1MaWtlbGlob29kOiAtNTYwNy44IG9uIDkgRGZcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxudHJ1bmNyZWcoZm9ybXVsYSA9IGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgZmFtaW5jICsgXG4gICAgY2l0eSArIGV4cGVyICsgZXhwZXJzcSwgZGF0YSA9IGxhYnN1cHApXG5cbkJGR1MgbWF4aW1pemF0aW9uIG1ldGhvZFxuODAgaXRlcmF0aW9ucywgMGg6MG06MHMgXG5nJygtSCleLTFnID0gIDU3LjkgXG4gXG5cblxuQ29lZmZpY2llbnRzIDpcbiAgICAgICAgICAgICAgIEVzdGltYXRlICBTdGQuIEVycm9yIHQtdmFsdWUgIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgIDEuNDYyMmUrMDMgIDcuMzk4M2UrMDIgIDEuOTc2NCAgIDAuMDQ4MTEgKiAgXG5raWRzbHQ2ICAgICAtNS4yMzMyZSswMiAgMS45NzYxZSswMiAtMi42NDgzICAgMC4wMDgwOSAqKiBcbmtpZHNnZTYgICAgIC02LjM2NjZlKzAxICA2LjM5MjBlKzAxIC0wLjk5NjAgICAwLjMxOTI0ICAgIFxuYWdlICAgICAgICAgLTEuMTAzOWUrMDIgIDEuMzc5MGUrMDEgLTguMDA1MCAxLjExMGUtMTUgKioqXG5lZHVjICAgICAgICAtNi4xMjA4ZSswMSAgMy43ODA3ZSswMSAtMS42MTg5ICAgMC4xMDU0NiAgICBcbmZhbWluYyAgICAgICA0LjM0NDBlLTAyICA2LjU4OTFlLTAzICA2LjU5MjYgNC4zMjFlLTExICoqKlxuY2l0eSAgICAgICAgLTEuMDE4M2UrMDIgIDEuNTc4OGUrMDIgLTAuNjQ1MCAgIDAuNTE4OTQgICAgXG5leHBlciAgICAgICAgMi43NTY3ZSswMiAgMy4yODg2ZSswMSAgOC4zODI4IDwgMi4yZS0xNiAqKipcbmV4cGVyc3EgICAgIC0zLjMwMDNlKzAwICA4LjM0OTdlLTAxIC0zLjk1MjYgNy43MzJlLTA1ICoqKlxuc2lnbWEgICAgICAgIDEuMDc2NGUrMDMgIDUuNDM3NmUrMDEgMTkuNzk1NyA8IDIuMmUtMTYgKioqXG4tLS1cblNpZ25pZi4gY29kZXM6ICAwIOKAmCoqKuKAmSAwLjAwMSDigJgqKuKAmSAwLjAxIOKAmCrigJkgMC4wNSDigJgu4oCZIDAuMSDigJgg4oCZIDFcblxuTG9nLUxpa2VsaWhvb2Q6IC01NjA2IG9uIDEwIERmXG4ifQ== -->
 <pre><code>
 Call:
-truncreg(formula = hours ~ kidslt6 + kidsge6 + age + educ + city + 
-    exper + expersq, data = labsupp)
+truncreg(formula = hours ~ kidslt6 + kidsge6 + age + educ + faminc + 
+    city + exper + expersq, data = labsupp)
 
 BFGS maximization method
-58 iterations, 0h:0m:0s 
-g&#39;(-H)^-1g =  88.3 
+80 iterations, 0h:0m:0s 
+g&#39;(-H)^-1g =  57.9 
  
 
 
 Coefficients :
-             Estimate Std. Error t-value  Pr(&gt;|t|)    
-(Intercept) 1341.1030  1077.2381  1.2449   0.21315    
-kidslt6     -647.3031   329.2925 -1.9657   0.04933 *  
-kidsge6      -92.0571    90.3665 -1.0187   0.30834    
-age         -155.7925    27.6185 -5.6409 1.692e-08 ***
-educ          21.3775    53.4691  0.3998   0.68930    
-city         -31.4936   220.1759 -0.1430   0.88626    
-exper        429.1496    72.2720  5.9380 2.886e-09 ***
-expersq       -6.7867     1.6210 -4.1867 2.830e-05 ***
-sigma       1339.3733   126.9776 10.5481 &lt; 2.2e-16 ***
+               Estimate  Std. Error t-value  Pr(&gt;|t|)    
+(Intercept)  1.4622e+03  7.3983e+02  1.9764   0.04811 *  
+kidslt6     -5.2332e+02  1.9761e+02 -2.6483   0.00809 ** 
+kidsge6     -6.3666e+01  6.3920e+01 -0.9960   0.31924    
+age         -1.1039e+02  1.3790e+01 -8.0050 1.110e-15 ***
+educ        -6.1208e+01  3.7807e+01 -1.6189   0.10546    
+faminc       4.3440e-02  6.5891e-03  6.5926 4.321e-11 ***
+city        -1.0183e+02  1.5788e+02 -0.6450   0.51894    
+exper        2.7567e+02  3.2886e+01  8.3828 &lt; 2.2e-16 ***
+expersq     -3.3003e+00  8.3497e-01 -3.9526 7.732e-05 ***
+sigma        1.0764e+03  5.4376e+01 19.7957 &lt; 2.2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Log-Likelihood: -5607.8 on 9 Df</code></pre>
+Log-Likelihood: -5606 on 10 Df</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJ1bmN0YWJsZSA8LSBjb2VmKHN1bW1hcnkodHJ1bmMpKVxuYGBgIn0= -->
 <pre class="r"><code>trunctable &lt;- coef(summary(trunc))</code></pre>
@@ -1932,8 +1973,8 @@ Log-Likelihood: -5607.8 on 9 Df</code></pre>
 <h1>3)</h1>
 <p>Wage is highly endogenous to hours. Hours affect wages and vice
 versa. “bad control” problem. The regression equation can be interpreted
-as how family care affects labour supply of women of same age, education
-and experience living in the same</p>
+as how family care affects labour supply of women of same age,
+education, experience and family income living in the same city.</p>
 <p> </p>
 </div>
 <div id="section-3" class="section level1">
@@ -1978,6 +2019,10 @@ lm(formula = hours ~ faminc, data = labsupp)</code></pre>
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5jb21lY29uZCA8LSBsbShob3VycyB+IGZhbWluYywgZGF0YSA9IHN1YnNldChsYWJzdXBwLCBpbmxmID09IDEpKVxuc3VtbWFyeShpbmNvbWVjb25kKVxuYGBgIn0= -->
 <pre class="r"><code>incomecond &lt;- lm(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(incomecond)</code></pre>
@@ -2009,13 +2054,17 @@ F-statistic: 9.905 on 1 and 426 DF,  p-value: 0.001764</code></pre>
 <pre><code>Average marginal effects
 lm(formula = hours ~ faminc, data = subset(labsupp, inlf == 1))</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6W119LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFQUVE2Q01CQmNrR29nRVUxOEJ5VEdpemN2eGdjWVRiaFdCQ1ZDUzBxSlBzQ0RyL0FsdmczY05qVFJYcnJkNmN4MFpyOU5Wa0VTQU1BSVBCZFBnbGNneDhNdVdvTkd3QUVQZkRVZitMelFBRUNvNXViNXFqNjlmRnRFd21pVk5YaVovNERqbkZZRlN5MnFML2c5TnZUcDRPM1lmbWxKRzlzdk9GTko0MXlnRnJmT2treDRMUXZPVU9TcXhNUVNPOElDWmkxVEtjNVJlbTNaTFZxcUQ0WTA4Si9NVHVuMmd4VXhSVE4yS1ZobXNwZjBsSlhERW1KYlhUYXVSY0drYVlKb0Uwc3VxZUVGS1M4Tm9ydEI5d1dsK3NESHFBRUFBQT09In0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6W119LCJyZGYiOiJINHNJQUFBQUFBQUFCbDFQUVE2Q01CQmNrR29nRVUxOEJ4ejA0czJMOFFGR0U2NFZRWW5Ra2xLaUQvRGdLM3lKYndPM0RVMjBsMjUzT2pPZDJXK1RWWkFFQURBQ3o4V1Q0QlhJOGJDTDFxQVJjTUFEWDgwSFBpODBBQkNxdVhtK3FrOHYzeGFSTUZwbERWN21QK0E0cDFYQlVvdnFDMzZQRFgwNmVEdTJYMXJTeHZZTHpsVFNPQmVveGEyekpCTmV5NEl6RkxrcU1iSEVqckNBV2N0VWluT1VYbHQyaTVicWd5RU4vQ2V6VTdyOVlFVk0wWXhkQ3BhWjdDVTlaZVd3aE5oV2w0MXJVVEJwbWlEYXhKSkxhbmhCeWt1RDZHN1FmUUhEbkNKaXFBRUFBQT09In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["faminc"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.01002584"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9iaXRpbmMgPC0gdG9iaXQoaG91cnMgfiBmYW1pbmMsIGRhdGEgPSBsYWJzdXBwKVxuc3VtbWFyeSh0b2JpdGluYylcbmBgYCJ9 -->
 <pre class="r"><code>tobitinc &lt;- tobit(hours ~ faminc, data = labsupp)
 summary(tobitinc)</code></pre>
@@ -2044,6 +2093,10 @@ Number of Newton-Raphson Iterations: 3
 Log-likelihood: -3948 on 3 Df
 Wald-statistic: 14.66 on 1 Df, p-value: 0.00012895 </code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudG9iaXRpbmNjb25kIDwtIHRvYml0KGhvdXJzIH4gZmFtaW5jLCBkYXRhID0gc3Vic2V0KGxhYnN1cHAsIGlubGYgPT0gMSkpXG5zdW1tYXJ5KHRvYml0aW5jY29uZClcbmBgYCJ9 -->
 <pre class="r"><code>tobitinccond &lt;- tobit(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(tobitinccond)</code></pre>
@@ -2078,7 +2131,7 @@ Wald-statistic: 9.951 on 1 Df, p-value: 0.0016075 </code></pre>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCmxpYnJhcnkoQUVSKQ0KbGlicmFyeSh0cnVuY3JlZykNCmxpYnJhcnkobWFyZ2lucykNCg0KI1IgTWFya2Rvd24gZmlsZXMgYXV0b21hdGljYWxseSBzZXQgdGhlIHdkIHRvIHRoZWlyIGRpcmVjdG9yeQ0KI0JlY2F1c2Ugb2YgdGhhdCB0aGUgd29ya2luZyBkaXJlY3Rvcnkgc2hvdWxkIGJlIHRoZSBzYW1lIGFzIHRoZSBkaXJlY3Rvcnkgb2YgdGhpcyBmaWxlIA0KZ2V0d2QoKSANCg0KbGFic3VwcCA8LSByZWFkLmNzdihmaWxlID0gJ21yb3pfd29vbC5jc3YnKQ0KaGVhZChsYWJzdXBwKQ0KYGBgDQoNCiZuYnNwOyAgDQoNCiMgT0xTDQpgYGB7cn0NCk9MUyA8LSBsbShob3VycyB+IGtpZHNsdDYgKyBraWRzZ2U2ICsgYWdlICsgZWR1YyArIGNpdHkgKyBleHBlciArIGV4cGVyc3EsDQogICAgICAgICAgZGF0YSA9IGxhYnN1cHApDQpzdW1tYXJ5KE9MUykNCmBgYA0KDQombmJzcDsgIA0KDQojIDEpDQpgYGB7cn0NCnRvYml0IDwtIHRvYml0KGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIGV4cGVyICsgZXhwZXJzcSwNCiAgICAgICAgICAgICAgIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeSh0b2JpdCkNCnRvYml0dGFibGUgPC0gY29lZihzdW1tYXJ5KHRvYml0KSkNCmBgYA0KDQombmJzcDsgIA0KDQojIDIpDQpgYGB7cn0NCnRydW5jIDwtIHRydW5jcmVnKGhvdXJzIH4ga2lkc2x0NiArIGtpZHNnZTYgKyBhZ2UgKyBlZHVjICsgY2l0eSArIGV4cGVyICsgZXhwZXJzcSwNCiAgICAgICAgICAgICAgICAgIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeSh0cnVuYykNCnRydW5jdGFibGUgPC0gY29lZihzdW1tYXJ5KHRydW5jKSkNCmBgYA0KICANCiZuYnNwOyAgDQoNCiMgMykNCldhZ2UgaXMgaGlnaGx5IGVuZG9nZW5vdXMgdG8gaG91cnMuIEhvdXJzIGFmZmVjdCB3YWdlcyBhbmQgdmljZSB2ZXJzYS4gImJhZCBjb250cm9sIiBwcm9ibGVtLiBUaGUgcmVncmVzc2lvbiBlcXVhdGlvbiBjYW4gYmUgaW50ZXJwcmV0ZWQgYXMgaG93IGZhbWlseSBjYXJlIGFmZmVjdHMgbGFib3VyIHN1cHBseSBvZiB3b21lbiBvZiBzYW1lIGFnZSwgZWR1Y2F0aW9uIGFuZCBleHBlcmllbmNlIGxpdmluZyBpbiB0aGUgc2FtZSANCg0KJm5ic3A7ICANCg0KIyA0KQ0KYGBge3J9DQppbmNvbWUgPC0gbG0oaG91cnMgfiBmYW1pbmMsIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeShpbmNvbWUpDQoNCm1hcmdpbnMoaW5jb21lKQ0KDQoNCmluY29tZWNvbmQgPC0gbG0oaG91cnMgfiBmYW1pbmMsIGRhdGEgPSBzdWJzZXQobGFic3VwcCwgaW5sZiA9PSAxKSkNCnN1bW1hcnkoaW5jb21lY29uZCkNCm1hcmdpbnMoaW5jb21lY29uZCkNCg0KdG9iaXRpbmMgPC0gdG9iaXQoaG91cnMgfiBmYW1pbmMsIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeSh0b2JpdGluYykNCg0KdG9iaXRpbmNjb25kIDwtIHRvYml0KGhvdXJzIH4gZmFtaW5jLCBkYXRhID0gc3Vic2V0KGxhYnN1cHAsIGlubGYgPT0gMSkpDQpzdW1tYXJ5KHRvYml0aW5jY29uZCkNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCmxpYnJhcnkoQUVSKQ0KbGlicmFyeSh0cnVuY3JlZykNCmxpYnJhcnkobWFyZ2lucykNCg0KI1IgTWFya2Rvd24gZmlsZXMgYXV0b21hdGljYWxseSBzZXQgdGhlIHdkIHRvIHRoZWlyIGRpcmVjdG9yeQ0KI0JlY2F1c2Ugb2YgdGhhdCB0aGUgd29ya2luZyBkaXJlY3Rvcnkgc2hvdWxkIGJlIHRoZSBzYW1lIGFzIHRoZSBkaXJlY3Rvcnkgb2YgdGhpcyBmaWxlIA0KZ2V0d2QoKSANCg0KbGFic3VwcCA8LSByZWFkLmNzdihmaWxlID0gJ21yb3pfd29vbC5jc3YnKQ0KaGVhZChsYWJzdXBwKQ0KYGBgDQoNCiZuYnNwOyAgDQoNCiMgT0xTDQpgYGB7cn0NCk9MUyA8LSBsbShob3VycyB+IGtpZHNsdDYgKyBraWRzZ2U2ICsgYWdlICsgZWR1YyArIGZhbWluYyArIGNpdHkgKyBleHBlciArIGV4cGVyc3EsIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeShPTFMpDQpgYGANCg0KJm5ic3A7ICANCg0KIyAxKQ0KYGBge3J9DQp0b2JpdCA8LSB0b2JpdChob3VycyB+IGtpZHNsdDYgKyBraWRzZ2U2ICsgYWdlICsgZWR1YyArIGZhbWluYyArIGNpdHkgKyBleHBlciArIGV4cGVyc3EsDQogICAgICAgICAgICAgICBkYXRhID0gbGFic3VwcCkNCnN1bW1hcnkodG9iaXQpDQp0b2JpdHRhYmxlIDwtIGNvZWYoc3VtbWFyeSh0b2JpdCkpDQpgYGANCg0KJm5ic3A7ICANCg0KIyAyKQ0KYGBge3J9DQp0cnVuYyA8LSB0cnVuY3JlZyhob3VycyB+IGtpZHNsdDYgKyBraWRzZ2U2ICsgYWdlICsgZWR1YyArIGZhbWluYyArIGNpdHkgKyBleHBlciArIGV4cGVyc3EsIGRhdGEgPSBsYWJzdXBwKQ0Kc3VtbWFyeSh0cnVuYykNCnRydW5jdGFibGUgPC0gY29lZihzdW1tYXJ5KHRydW5jKSkNCmBgYA0KICANCiZuYnNwOyAgDQoNCiMgMykNCldhZ2UgaXMgaGlnaGx5IGVuZG9nZW5vdXMgdG8gaG91cnMuIEhvdXJzIGFmZmVjdCB3YWdlcyBhbmQgdmljZSB2ZXJzYS4gImJhZCBjb250cm9sIiBwcm9ibGVtLiBUaGUgcmVncmVzc2lvbiBlcXVhdGlvbiBjYW4gYmUgaW50ZXJwcmV0ZWQgYXMgaG93IGZhbWlseSBjYXJlIGFmZmVjdHMgbGFib3VyIHN1cHBseSBvZiB3b21lbiBvZiBzYW1lIGFnZSwgZWR1Y2F0aW9uLCBleHBlcmllbmNlIGFuZCBmYW1pbHkgaW5jb21lIGxpdmluZyBpbiB0aGUgc2FtZSBjaXR5Lg0KDQombmJzcDsgIA0KDQojIDQpDQpgYGB7cn0NCmluY29tZSA8LSBsbShob3VycyB+IGZhbWluYywgZGF0YSA9IGxhYnN1cHApDQpzdW1tYXJ5KGluY29tZSkNCg0KbWFyZ2lucyhpbmNvbWUpDQpgYGANCg0KYGBge3J9DQppbmNvbWVjb25kIDwtIGxtKGhvdXJzIH4gZmFtaW5jLCBkYXRhID0gc3Vic2V0KGxhYnN1cHAsIGlubGYgPT0gMSkpDQpzdW1tYXJ5KGluY29tZWNvbmQpDQoNCm1hcmdpbnMoaW5jb21lY29uZCkNCmBgYA0KDQpgYGB7cn0NCnRvYml0aW5jIDwtIHRvYml0KGhvdXJzIH4gZmFtaW5jLCBkYXRhID0gbGFic3VwcCkNCnN1bW1hcnkodG9iaXRpbmMpDQoNCmBgYA0KDQoNCmBgYHtyfQ0KdG9iaXRpbmNjb25kIDwtIHRvYml0KGhvdXJzIH4gZmFtaW5jLCBkYXRhID0gc3Vic2V0KGxhYnN1cHAsIGlubGYgPT0gMSkpDQpzdW1tYXJ5KHRvYml0aW5jY29uZCkNCg0KYGBgDQoNCg==</div>
 
 
 

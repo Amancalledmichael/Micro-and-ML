@@ -20,8 +20,7 @@ head(labsupp)
 
 # OLS
 ```{r}
-OLS <- lm(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
-          data = labsupp)
+OLS <- lm(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp)
 summary(OLS)
 ```
 
@@ -29,7 +28,7 @@ summary(OLS)
 
 # 1)
 ```{r}
-tobit <- tobit(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
+tobit <- tobit(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq,
                data = labsupp)
 summary(tobit)
 tobittable <- coef(summary(tobit))
@@ -39,8 +38,7 @@ tobittable <- coef(summary(tobit))
 
 # 2)
 ```{r}
-trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + city + exper + expersq,
-                  data = labsupp)
+trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp)
 summary(trunc)
 trunctable <- coef(summary(trunc))
 ```
@@ -48,7 +46,7 @@ trunctable <- coef(summary(trunc))
 &nbsp;  
 
 # 3)
-Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. The regression equation can be interpreted as how family care affects labour supply of women of same age, education and experience living in the same 
+Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. The regression equation can be interpreted as how family care affects labour supply of women of same age, education, experience and family income living in the same city.
 
 &nbsp;  
 
@@ -58,16 +56,25 @@ income <- lm(hours ~ faminc, data = labsupp)
 summary(income)
 
 margins(income)
+```
 
-
+```{r}
 incomecond <- lm(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(incomecond)
-margins(incomecond)
 
+margins(incomecond)
+```
+
+```{r}
 tobitinc <- tobit(hours ~ faminc, data = labsupp)
 summary(tobitinc)
 
+```
+
+
+```{r}
 tobitinccond <- tobit(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(tobitinccond)
+
 ```
 
