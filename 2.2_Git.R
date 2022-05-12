@@ -1,4 +1,4 @@
-setwd("M:/Kurse/Micro and ML/Tutorial")
+setwd("C:/Users/gnico/Documents/Micro-and-ML")
 
 labsupp <- read.csv(file = 'mroz_wool.csv')
 View(labsupp)
@@ -37,12 +37,14 @@ summary(income)
 library(margins)
 margins(income)
 
+
 incomecond<-lm(hours ~ faminc, data = subset(labsupp, inlf==1))
 summary(incomecond)
 margins(incomecond)
 
-tobitwage<-tobit(hours ~ wage, data = labsupp)
-summary(tobitwage)
+tobitinc<-tobit(hours ~ faminc, data = labsupp)
+summary(tobitinc)
 
-OLSwage<-lm(hours ~ wage, data=labsupp)
-margins(OLSwage)
+tobitinccond<-tobit(hours ~ faminc, data = subset(labsupp, inlf==1))
+summary(tobitinccond)
+
