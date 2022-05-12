@@ -59,17 +59,20 @@ margins(income)
 ```
 
 ```{r}
+tobitinc <- tobit(hours ~ faminc, data = labsupp)
+summary(tobitinc)
+
+```
+
+The coefficient from the tobit regression is smaller than that from OLS when using all observations. 
+
+```{r}
 incomecond <- lm(hours ~ faminc, data = subset(labsupp, inlf == 1))
 summary(incomecond)
 
 margins(incomecond)
 ```
 
-```{r}
-tobitinc <- tobit(hours ~ faminc, data = labsupp)
-summary(tobitinc)
-
-```
 
 
 ```{r}
@@ -78,3 +81,4 @@ summary(tobitinccond)
 
 ```
 
+When only considering those working, the two coefficients are identical (only the standard errors vary)
