@@ -82,3 +82,27 @@ summary(tobitinccond)
 ```
 
 When only considering those working, the two coefficients are identical (only the standard errors vary)
+
+# 4 Backup
+
+```{r}
+margins(trunc)
+labsupp_working <- labsupp[labsupp$inlf == 1,]
+
+trunccond <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp_working)
+margins(trunccond)
+
+trunc_working <- trunc
+trunc_working$model <- trunc_working$model[trunc_working$model$hours > 0,]
+
+
+
+margins(trunc_working)
+summary(trunc_working)
+
+```
+
+```{r}
+summary(tobit)
+summary(income)
+```
