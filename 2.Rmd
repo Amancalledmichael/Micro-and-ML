@@ -8,6 +8,7 @@ library(AER)
 library(truncreg)
 library(margins)
 
+
 #R Markdown files automatically set the wd to their directory
 #Because of that the working directory should be the same as the directory of this file 
 getwd() 
@@ -20,7 +21,7 @@ head(labsupp)
 
 # OLS
 ```{r}
-OLS <- lm(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp)
+OLS <- lm(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + exper + expersq, data = labsupp)
 summary(OLS)
 ```
 
@@ -28,81 +29,44 @@ summary(OLS)
 
 # 1)
 ```{r}
-tobit <- tobit(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq,
+tobit <- tobit(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + exper + expersq,
                data = labsupp)
 summary(tobit)
-tobittable <- coef(summary(tobit))
 ```
 
 &nbsp;  
 
 # 2)
 ```{r}
-trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp)
+trunc <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + exper + expersq, data = labsupp)
 summary(trunc)
-trunctable <- coef(summary(trunc))
+
 ```
-  
 &nbsp;  
 
 # 3)
-Wage is highly endogenous to hours. Hours affect wages and vice versa. "bad control" problem. The regression equation can be interpreted as how family care affects labour supply of women of same age, education, experience and family income living in the same city.
+Wages are unobservable for those who do not work. Also, the causality might go the other way round: hours worked can also affect wages (e.g. though a wage premium for long hours, see https://blogs.lse.ac.uk/usappblog/2014/05/28/the-wage-premium-for-working-long-hours-has-helped-lead-to-the-stagnation-of-the-gender-wage-gap/).
+The coefficients from the truncated regression can be interpreted as the marginal effects of the respective variable on labor supply for those working. It is negative and statistically significant, i.e. for women who work, additional income from other sources reduces their labor supply (which makes sense). 
 
 &nbsp;  
 
 # 4)
-```{r}
-income <- lm(hours ~ faminc, data = labsupp)
-summary(income)
-
-margins(income)
-```
 
 ```{r}
-tobitinc <- tobit(hours ~ faminc, data = labsupp)
-summary(tobitinc)
+# average marginal effects for all observations in the tobit 
+individual_marginal_effects_all <- marginal_effects(tobit)
+average_marginal_effects_all <- colMeans(individual_marginal_effects_all)
+ame_all_nwifeinc <-  average_marginal_effects_all[5]
+ame_all_nwifeinc
 
-```
-
-The coefficient from the tobit regression is smaller than that from OLS when using all observations. 
-
-```{r}
-incomecond <- lm(hours ~ faminc, data = subset(labsupp, inlf == 1))
-summary(incomecond)
-
-margins(incomecond)
-```
-
-
-
-```{r}
-tobitinccond <- tobit(hours ~ faminc, data = subset(labsupp, inlf == 1))
-summary(tobitinccond)
-
-```
-
-When only considering those working, the two coefficients are identical (only the standard errors vary)
-
-# 4 Backup
-
-```{r}
-margins(trunc)
-labsupp_working <- labsupp[labsupp$inlf == 1,]
-
-trunccond <- truncreg(hours ~ kidslt6 + kidsge6 + age + educ + faminc + city + exper + expersq, data = labsupp_working)
-margins(trunccond)
-
-trunc_working <- trunc
-trunc_working$model <- trunc_working$model[trunc_working$model$hours > 0,]
-
-
-
-margins(trunc_working)
-summary(trunc_working)
-
+# average marginal effects for all
+individual_marginal_effects_working <- marginal_effects(tobit, data = labsupp[labsupp$inlf == 1,])
+average_marginal_effects_working <- colMeans(individual_marginal_effects_working)
+ame_working_nwifeinc <- average_marginal_effects_working[5]
+ame_working_nwifeinc
 ```
 
 ```{r}
 summary(tobit)
-summary(income)
+summary(OLS)
 ```
