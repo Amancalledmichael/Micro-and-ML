@@ -7,6 +7,8 @@ output: html_notebook
 library(AER)
 library(truncreg)
 library(margins)
+library(censReg)
+library(tidyverse) # for data warangling and filter select etc to manipulate dataset (In this script we only use filter, however the tidyverse is a great package to handle data) 
 
 
 #R Markdown files automatically set the wd to their directory
@@ -51,6 +53,57 @@ The coefficients from the truncated regression can be interpreted as the margina
 &nbsp;  
 
 # 4)
+### using censReg
+using censReg: The marginal effects differ now, though they are not in the expected order 
+```{r}
+
+#running regression with censReg
+cr_tobit <- censReg(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + exper + expersq,
+               data = labsupp)
+
+# beta
+summary(cr_tobit)[["estimate"]][6,1]
+
+# marginal effect at average 
+margEff(cr_tobit)[[5]]
+
+labsupp_working <- labsupp %>% 
+  filter(inlf == 1) %>% 
+  select(inlf, kidslt6 , kidsge6 , age , educ , nwifeinc , city , exper , expersq) %>% 
+  as.tibble()
+
+labsupp_working_means <- labsupp %>% 
+  filter(inlf == 1) %>% 
+  select(inlf, kidslt6 , kidsge6 , age , educ , nwifeinc , city , exper , expersq) %>% 
+  as.tibble() %>% 
+  colMeans()
+
+# marginal effect at average for workers
+margEff(cr_tobit, labsupp_working_means)[[5]]
+
+```
+
+Calculating the marginal effects at for each observation and then taking the average over all:
+```{r}
+
+# calculate the marginal effect for all obs for the given variable var from the model model with data x and subsequently take the average over all 
+calc_ape <- function(model, x, var) {
+  out <- as.double(length(x[[1]]))
+  for (i in 1:length(x[[1]])) {
+    out[i] <- margEff(cr_tobit, unlist(x[i,]))[[var]]
+    
+  }
+  mean(out)
+}
+
+# average marginal effect for all
+calc_ape(cr_tobit, select(labsupp, inlf, kidslt6 , kidsge6 , age , educ , nwifeinc , city , exper , expersq), "nwifeinc")
+
+# avg marginal effect for working
+calc_ape(cr_tobit, labsupp_working, "nwifeinc")
+
+```
+### before
 
 ```{r}
 # average marginal effects for all observations in the tobit 
