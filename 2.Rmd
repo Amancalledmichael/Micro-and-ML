@@ -1,11 +1,13 @@
-Matr.Nr.: 
-Michael 1187814 
-Lucas 01/951052
-
 ---
 title: "R Notebook"
 output: html_notebook
 ---
+Matr.Nr.: 
+Michael 1187814,
+Lucas 01/951052,
+Nico 01/716631,
+
+
 
 ```{r setup}
 library(AER)
