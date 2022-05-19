@@ -1,5 +1,6 @@
 Matr.Nr.: 
 Michael 1187814 
+Lucas 01/951052
 
 ---
 title: "R Notebook"
@@ -67,14 +68,21 @@ cr_tobit <- censReg(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + e
 # beta
 summary(cr_tobit)[["estimate"]][6,1]
 
+``` 
+
+Marginal Effect at the average of the RHS variables (first for all, then only for those in the labor force)
+
+```{r}
 # marginal effect at average 
 margEff(cr_tobit)[[5]]
 
+# create dataset of working population
 labsupp_working <- labsupp %>% 
   filter(inlf == 1) %>% 
   select(inlf, kidslt6 , kidsge6 , age , educ , nwifeinc , city , exper , expersq) %>% 
   as.tibble()
 
+# calculate means for RHS variables
 labsupp_working_means <- labsupp %>% 
   filter(inlf == 1) %>% 
   select(inlf, kidslt6 , kidsge6 , age , educ , nwifeinc , city , exper , expersq) %>% 
@@ -86,12 +94,12 @@ margEff(cr_tobit, labsupp_working_means)[[5]]
 
 ```
 
-Calculating the marginal effects at for each observation and then taking the average over all:
+Average partial effects: Calculating the marginal effects at for each observation and then take the average over all (again: first for everyone, then only those in labor force)
 ```{r}
 
 # calculate the marginal effect for all obs for the given variable var from the model model with data x and subsequently take the average over all 
 calc_ape <- function(model, x, var) {
-  out <- as.double(length(x[[1]]))
+  out <- as.double(NA)
   for (i in 1:length(x[[1]])) {
     out[i] <- margEff(cr_tobit, unlist(x[i,]))[[var]]
     
@@ -106,23 +114,4 @@ calc_ape(cr_tobit, select(labsupp, inlf, kidslt6 , kidsge6 , age , educ , nwifei
 calc_ape(cr_tobit, labsupp_working, "nwifeinc")
 
 ```
-### before
 
-```{r}
-# average marginal effects for all observations in the tobit 
-individual_marginal_effects_all <- marginal_effects(tobit)
-average_marginal_effects_all <- colMeans(individual_marginal_effects_all)
-ame_all_nwifeinc <-  average_marginal_effects_all[5]
-ame_all_nwifeinc
-
-# average marginal effects for all
-individual_marginal_effects_working <- marginal_effects(tobit, data = labsupp[labsupp$inlf == 1,])
-average_marginal_effects_working <- colMeans(individual_marginal_effects_working)
-ame_working_nwifeinc <- average_marginal_effects_working[5]
-ame_working_nwifeinc
-```
-
-```{r}
-summary(tobit)
-summary(OLS)
-```
