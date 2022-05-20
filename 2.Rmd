@@ -14,7 +14,7 @@ library(AER)
 library(truncreg)
 library(margins)
 library(censReg)
-library(tidyverse) # for data warangling and filter select etc to manipulate dataset (In this script we only use filter, however the tidyverse is a great package to handle data) 
+library(tidyverse) # for data wrangling and filter select etc to manipulate datasets (In this script we only use filter, however the tidyverse is a great package to handle data) 
 
 
 #R Markdown files automatically set the wd to their directory
@@ -60,10 +60,9 @@ The coefficients from the truncated regression can be interpreted as the margina
 
 # 4)
 ### using censReg
-using censReg: The marginal effects differ now, though they are not in the expected order 
 ```{r}
 
-#running regression with censReg
+#running censored regression with censReg
 cr_tobit <- censReg(hours ~ kidslt6 + kidsge6 + age + educ + nwifeinc + city + exper + expersq,
                data = labsupp)
 
@@ -96,7 +95,7 @@ margEff(cr_tobit, labsupp_working_means)[[5]]
 
 ```
 
-Average partial effects: Calculating the marginal effects at for each observation and then take the average over all (again: first for everyone, then only those in labor force)
+Average partial effects: Calculating the marginal effects for each observation and then taking the average over all (again: first for everyone, then only those in labor force)
 ```{r}
 
 # calculate the marginal effect for all obs for the given variable var from the model model with data x and subsequently take the average over all 
