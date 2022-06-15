@@ -4,6 +4,7 @@ output: html_document
 date: '2022-06-15'
 ---
 # Load Dataset and required packages
+- skip first column (column number)
 ```{r}
 rm(list = ls())
 # install.packages("tree")
@@ -11,7 +12,7 @@ library(tree)
 # install.packages("ISLR")
 library(ISLR)
 
-carseats <- read.csv(file = 'carseats.csv')
+carseats <- read.csv(file = 'carseats.csv', colClasses = (c("NULL", replicate(11, NA))))
 
 # View(carseats)
 
@@ -21,17 +22,21 @@ carseats <- read.csv(file = 'carseats.csv')
 Split the variables sales into a binary outcome variable with High = 1 if Sales > 8 and 0
 otherwise.
 ```{r}
-carseats$High <- ifelse(carseats$Sales > 8, 1, 0)
+carseats$HighSales <- as.factor(ifelse(carseats$Sales > 8, "Low", "High"))
 
-table(carseats$Sales, carseats$High)
+# table(carseats$Sales, carseats$HighSales)
 ```
 
 # Exercise 2
 Estimate an unpruned classification regression tree for the High/Low sales variable with
 minimum size node of 12.
+- make character variables factor before
 
 ```{r}
-seat_tree = tree(Sales ~ ., data = carseats, minsize = 12)
+carseats$Urban <- as.factor(carseats$Urban)
+carseats$ShelveLoc <- factor(carseats$ShelveLoc)
+carseats$US <- as.factor(carseats$US)
+seat_tree = tree(HighSales ~ . - Sales, data = carseats, minsize = 12)
 ```
 # Exercise 3
 Plot the unpruned classification regression tree.
@@ -67,8 +72,11 @@ seat_tst = carseats[-seat_idx,]
 Compute an unpruned tree with minimum node size 12 for the training data.
 
 ```{r}
-seat_tree = tree(Sales ~ ., data = seat_trn, minsize = 12)
-
+seat_tree_trn = tree(HighSales ~ . - Sales, data = seat_trn, minsize = 12)
+plot(seat_tree_trn)
+text(seat_tree_trn, pretty = 0)
+title(main = "Unpruned Classification Tree (Training)")
+summary(seat_tree_trn)
 ```
 
 # Exercise 7
@@ -76,8 +84,8 @@ Predict the tree for the training data and for the test data and compare the maj
 statistics
 
 ```{r}
-seat_trn_pred = predict(seat_tree, seat_trn, type = "class")
-seat_tst_pred = predict(seat_tree, seat_tst, type = "class")
+seat_trn_pred = predict(seat_tree_trn, seat_trn, type = "class")
+seat_tst_pred = predict(seat_tree_trn, seat_tst, type = "class")
 ```
 
 # Exercise 8
@@ -86,18 +94,18 @@ racy measures
 
 ```{r}
 # train confusion
-table(predicted = seat_trn_pred, actual = seat_trn$Sales)
+table(predicted = seat_trn_pred, actual = seat_trn$HighSales)
 # test confusion
-table(predicted = seat_tst_pred, actual = seat_tst$Sales)
+table(predicted = seat_tst_pred, actual = seat_tst$HighSales)
 
 accuracy = function(actual, predicted) {
   mean(actual == predicted)
 }
 
 # train acc
-accuracy(predicted = seat_trn_pred, actual = seat_trn$Sales)
+accuracy(predicted = seat_trn_pred, actual = seat_trn$HighSales)
 #test acc
-accuracy(predicted = seat_trn_pred, actual = seat_tst$Sales)
+accuracy(predicted = seat_trn_pred, actual = seat_tst$HighSales)
 
 ```
 
