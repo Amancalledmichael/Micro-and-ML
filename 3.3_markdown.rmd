@@ -44,7 +44,7 @@ Plot the unpruned classification regression tree.
 
 ```{r}
 plot(seat_tree)
-text(seat_tree, pretty = 0)
+text(seat_tree, pretty = 0, cex = 0.5)
 title(main = "Unpruned Classification Tree")
 ```
 
@@ -75,7 +75,7 @@ Compute an unpruned tree with minimum node size 12 for the training data.
 ```{r}
 seat_tree_trn = tree(HighSales ~ . - Sales, data = seat_trn, minsize = 12)
 plot(seat_tree_trn)
-text(seat_tree_trn, pretty = 0)
+text(seat_tree_trn, pretty = 0, cex = 0.5)
 title(main = "Unpruned Classification Tree (Training)")
 summary(seat_tree_trn)
 ```
@@ -118,7 +118,7 @@ to 9 and 14.
 # 9 nodes
 seat_tree_trn_cv_9 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 9)
 plot(seat_tree_trn_cv_9)
-text(seat_tree_trn_cv_9)
+text(seat_tree_trn_cv_9, cex = 0.5)
 
 
 seat_trn_cv_9_pred <- predict(seat_tree_trn_cv_9, seat_trn, type = "class")
@@ -132,7 +132,7 @@ accuracy(predicted = seat_tst_cv_9_pred, actual = seat_tst$HighSales)
 # 14 nodes
 seat_tree_trn_cv_14 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 14)
 plot(seat_tree_trn_cv_14)
-text(seat_tree_trn_cv_14)
+text(seat_tree_trn_cv_14, cex = 0.5)
 
 seat_trn_cv_14_pred <- predict(seat_tree_trn_cv_14, seat_trn, type = "class")
 seat_tst_cv_14_pred <- predict(seat_tree_trn_cv_14, seat_tst, type = "class")
