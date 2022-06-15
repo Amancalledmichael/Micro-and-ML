@@ -1,0 +1,117 @@
+---
+title: '3.3 Markdown'
+output: html_document
+date: '2022-06-15'
+---
+# Load Dataset and required packages
+```{r}
+rm(list = ls())
+# install.packages("tree")
+library(tree)
+# install.packages("ISLR")
+library(ISLR)
+
+carseats <- read.csv(file = 'carseats.csv')
+
+# View(carseats)
+
+```
+
+# Exercise 1
+Split the variables sales into a binary outcome variable with High = 1 if Sales > 8 and 0
+otherwise.
+```{r}
+carseats$High <- ifelse(carseats$Sales > 8, 1, 0)
+
+table(carseats$Sales, carseats$High)
+```
+
+# Exercise 2
+Estimate an unpruned classification regression tree for the High/Low sales variable with
+minimum size node of 12.
+
+```{r}
+seat_tree = tree(Sales ~ ., data = carseats, minsize = 12)
+```
+# Exercise 3
+Plot the unpruned classification regression tree.
+
+```{r}
+plot(seat_tree)
+text(seat_tree, pretty = 0)
+title(main = "Unpruned Classification Tree")
+```
+
+# Exercise 4
+Report for the unpruned classification regression tree the number of terminal nodes, the
+residual deviance and the misclassification error rate.
+
+```{r}
+summary(seat_tree)
+```
+
+# Exercise 5
+Split the total sample randomly into a training data set and a test data set with 200 obser-
+vations each
+ 
+```{r}
+dim(carseats)
+set.seed(2)
+seat_idx = sample(1:nrow(carseats), 200)
+seat_trn = carseats[seat_idx,]
+seat_tst = carseats[-seat_idx,]
+
+```
+
+# Exercise 6
+Compute an unpruned tree with minimum node size 12 for the training data.
+
+```{r}
+seat_tree = tree(Sales ~ ., data = seat_trn, minsize = 12)
+
+```
+
+# Exercise 7
+Predict the tree for the training data and for the test data and compare the major summary
+statistics
+
+```{r}
+seat_trn_pred = predict(seat_tree, seat_trn, type = "class")
+seat_tst_pred = predict(seat_tree, seat_tst, type = "class")
+```
+
+# Exercise 8
+Report the confusion matrices for the test and the training data and the corresponding accu-
+racy measures
+
+```{r}
+# train confusion
+table(predicted = seat_trn_pred, actual = seat_trn$Sales)
+# test confusion
+table(predicted = seat_tst_pred, actual = seat_tst$Sales)
+
+accuracy = function(actual, predicted) {
+  mean(actual == predicted)
+}
+
+# train acc
+accuracy(predicted = seat_trn_pred, actual = seat_trn$Sales)
+#test acc
+accuracy(predicted = seat_trn_pred, actual = seat_tst$Sales)
+
+```
+
+# Exercise 9
+Use a ten-fold cross-validation on the tree of the test set with number of terminal nodes equal
+to 9 and 14.
+
+```{r}
+seat_tree_cv = cv.tree(seat_tree, FUN = prune.misclass)
+min_idx = which.min(seat_tree_cv$dev)
+seat_tree_cv$size[min_idx]
+seat_tree_cv$size[9]
+seat_tree_cv$size[14]
+
+```
+
+
