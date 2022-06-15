@@ -36,6 +36,7 @@ minimum size node of 12.
 carseats$Urban <- as.factor(carseats$Urban)
 carseats$ShelveLoc <- factor(carseats$ShelveLoc)
 carseats$US <- as.factor(carseats$US)
+
 seat_tree = tree(HighSales ~ . - Sales, data = carseats, minsize = 12)
 ```
 # Exercise 3
@@ -105,7 +106,7 @@ accuracy = function(actual, predicted) {
 # train acc
 accuracy(predicted = seat_trn_pred, actual = seat_trn$HighSales)
 #test acc
-accuracy(predicted = seat_trn_pred, actual = seat_tst$HighSales)
+accuracy(predicted = seat_tst_pred, actual = seat_tst$HighSales)
 
 ```
 
@@ -114,12 +115,36 @@ Use a ten-fold cross-validation on the tree of the test set with number of termi
 to 9 and 14.
 
 ```{r}
-seat_tree_cv = cv.tree(seat_tree, FUN = prune.misclass)
-min_idx = which.min(seat_tree_cv$dev)
-seat_tree_cv$size[min_idx]
-seat_tree_cv$size[9]
-seat_tree_cv$size[14]
+# 9 nodes
+seat_tree_trn_cv_9 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 9)
+plot(seat_tree_trn_cv_9)
+text(seat_tree_trn_cv_9)
+
+
+seat_trn_cv_9_pred <- predict(seat_tree_trn_cv_9, seat_trn, type = "class")
+seat_tst_cv_9_pred <- predict(seat_tree_trn_cv_9, seat_tst, type = "class")
+
+# train acc
+accuracy(predicted = seat_trn_cv_9_pred, actual = seat_trn$HighSales)
+#test acc
+accuracy(predicted = seat_tst_cv_9_pred, actual = seat_tst$HighSales)
+
+# 14 nodes
+seat_tree_trn_cv_14 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 14)
+plot(seat_tree_trn_cv_14)
+text(seat_tree_trn_cv_14)
+
+seat_trn_cv_14_pred <- predict(seat_tree_trn_cv_14, seat_trn, type = "class")
+seat_tst_cv_14_pred <- predict(seat_tree_trn_cv_14, seat_tst, type = "class")
+
+# train acc
+accuracy(predicted = seat_trn_cv_14_pred, actual = seat_trn$HighSales)
+#test acc
+accuracy(predicted = seat_tst_cv_14_pred, actual = seat_tst$HighSales)
+
+
 
 ```
+
 
 
