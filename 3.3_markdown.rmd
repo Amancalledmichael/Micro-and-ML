@@ -115,6 +115,17 @@ Use a ten-fold cross-validation on the tree of the test set with number of termi
 to 9 and 14.
 
 ```{r}
+# When setting a seed in a codebox in markdown, it does so only for given codebox,
+# such that we have to set a seed again for reporducibility
+set.seed(42)
+
+# cross validation using classification error rate as indicator
+seat_tree_cv <- cv.tree(seat_tree_trn, FUN = prune.misclass)
+# cross validation results: size -> terminal nodes, dev -> missclassifications, k -> cost complexity parameter
+seat_tree_cv
+# plot the error rate 
+plot(seat_tree_cv$size, seat_tree_cv$dev/nrow(seat_trn), type = "b")
+
 # 9 nodes
 seat_tree_trn_cv_9 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 9)
 plot(seat_tree_trn_cv_9)
@@ -129,6 +140,9 @@ accuracy(predicted = seat_trn_cv_9_pred, actual = seat_trn$HighSales)
 #test acc
 accuracy(predicted = seat_tst_cv_9_pred, actual = seat_tst$HighSales)
 
+# it is not possible to generate a tree with 14 nodes because of the minsize requirement we used prior
+# a tree with 14 terminal nodes is not considered (like in the original example)
+# the prune.missclass function defaults to using the next higher treesize (which is 17)
 # 14 nodes
 seat_tree_trn_cv_14 = cv.tree(seat_tree_trn, FUN = prune.misclass, best = 14)
 plot(seat_tree_trn_cv_14)
@@ -144,6 +158,23 @@ accuracy(predicted = seat_tst_cv_14_pred, actual = seat_tst$HighSales)
 
 
 
+```
+
+From Cross validation we know the optimal tree size seems could also be at 12, when using minimum node size of 12
+```{r}
+# 12 nodes
+seat_tree_trn_cv_12 = prune.misclass(seat_tree_trn, best = 12)
+plot(seat_tree_trn_cv_12)
+text(seat_tree_trn_cv_12, cex = 0.5)
+
+seat_tree_trn_cv_12_pred <- predict(seat_tree_trn_cv_12, seat_trn, type = "class")
+seat_tree_tst_cv_12_pred <- predict(seat_tree_trn_cv_12, seat_tst, type = "class")
+
+table(predicted = seat_tree_trn_cv_12_pred, actual = seat_trn$HighSales)
+accuracy(actual = seat_trn$HighSales, predicted = seat_tree_trn_cv_12_pred)
+
+table(predicted = seat_tree_tst_cv_12_pred, actual = seat_tst$HighSales)
+accuracy(actual = seat_tst$HighSales, predicted = seat_tree_tst_cv_12_pred)
 ```
 
 
