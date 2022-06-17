@@ -117,12 +117,13 @@ to 9 and 14.
 ```{r}
 # When setting a seed in a codebox in markdown, it does so only for given codebox,
 # such that we have to set a seed again for reporducibility
-set.seed(42)
+set.seed(420)
 
 # cross validation using classification error rate as indicator
 seat_tree_cv <- cv.tree(seat_tree_trn, FUN = prune.misclass)
 # cross validation results: size -> terminal nodes, dev -> missclassifications, k -> cost complexity parameter
-seat_tree_cv
+seat_tree_cv$size
+seat_tree_cv$dev
 # plot the error rate 
 plot(seat_tree_cv$size, seat_tree_cv$dev/nrow(seat_trn), type = "b")
 
