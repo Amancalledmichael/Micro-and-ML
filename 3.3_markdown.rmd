@@ -22,9 +22,9 @@ carseats <- read.csv(file = 'carseats.csv', colClasses = (c("NULL", replicate(11
 Split the variables sales into a binary outcome variable with High = 1 if Sales > 8 and 0
 otherwise.
 ```{r}
-carseats$HighSales <- as.factor(ifelse(carseats$Sales > 8, "Low", "High"))
+carseats$HighSales <- as.factor(ifelse(carseats$Sales <= 8, "Low", "High"))
 
-# table(carseats$Sales, carseats$HighSales)
+table(carseats$Sales, carseats$HighSales)
 ```
 
 # Exercise 2
