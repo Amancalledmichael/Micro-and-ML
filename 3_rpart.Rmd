@@ -1,0 +1,66 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r setup}
+library(tidyverse)
+library(rpart)
+library(tree)
+library(rpart.plot)
+
+```
+
+
+
+```{r}
+carseats <- read_csv("carseats.csv")
+carseats %>% head()
+```
+
+1
+```{r}
+
+# mutate allows you to add new variables to an existing dataframe with its own variables
+# case_when is very helpful to create different new classes based on some conditions (the conditions are evaluated in order and the first true is used). Here using case_when is probably overkill though.
+
+carseats <- carseats %>% 
+            mutate(Sales = case_when(Sales > 8 ~ 1,
+                                    Sales <= 8 ~ 0)) %>% 
+            select(-`...1`)
+# if we set the variable as a factor the default of the rpart function will be class, otherwise we would have to specify it.
+carseats$Sales <- as.factor(carseats$Sales)
+carseats$US <- as.factor(carseats$US)
+carseats$Urban <- as.factor(carseats$Urban)
+carseats$ShelveLoc <- as.factor(carseats$ShelveLoc)
+
+```
+2
+```{r}
+carseats_tree_unpruned <- rpart(Sales ~ ., carseats,
+                                minsplit = 12,
+                                cp = 0,
+                                parms = list(split = "information")) # The output depends on the impurity measure, default in rpart for classification is Gini, default in tree is information = Entropy
+
+# plotting the classification tree made with rpart 
+rpart.plot(carseats_tree_unpruned,
+           tweak = 1.5, # we can tweak the size of the tree
+           type = 5, # we can change the display of the decision nodes
+           extra = 101) # we can change the display information of the terminal nodes
+
+
+```
+Endnodes:
+- Predicted Class
+- Number of Low obs. / Number of High obs.
+- % of Observations
+
+
+4
+```{r}
+
+
+
+```
+
+
