@@ -373,11 +373,9 @@ pre code {
 <ul>
 <li>skip first column (column number)</li>
 </ul>
-<pre class="r"><code>rm(list = ls())
+<pre class="r"><code>rm(list = ls()) # clears everything
 # install.packages(&quot;tree&quot;)
 library(tree)
-# install.packages(&quot;ISLR&quot;)
-library(ISLR)
 
 carseats &lt;- read.csv(file = &#39;carseats.csv&#39;, colClasses = (c(&quot;NULL&quot;, replicate(11, NA))))
 
@@ -878,8 +876,8 @@ accuracy(predicted = seat_trn_cv_14_pred, actual = seat_trn$HighSales)</code></p
 <pre class="r"><code>#test acc
 accuracy(predicted = seat_tst_cv_14_pred, actual = seat_tst$HighSales)</code></pre>
 <pre><code>## [1] 0.795</code></pre>
-<p>From Cross validation we know the optimal tree size seems could also
-be at 12, when using minimum node size of 12</p>
+<p>From Cross validation we know that the tree size of 12 seems to be as
+good as 9, let’s try for fun</p>
 <pre class="r"><code># 12 nodes
 seat_tree_trn_cv_12 = prune.misclass(seat_tree_trn, best = 12)
 plot(seat_tree_trn_cv_12)

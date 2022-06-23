@@ -6,11 +6,9 @@ date: '2022-06-15'
 # Load Dataset and required packages
 - skip first column (column number)
 ```{r}
-rm(list = ls())
+rm(list = ls()) # clears everything
 # install.packages("tree")
 library(tree)
-# install.packages("ISLR")
-library(ISLR)
 
 carseats <- read.csv(file = 'carseats.csv', colClasses = (c("NULL", replicate(11, NA))))
 
@@ -161,7 +159,7 @@ accuracy(predicted = seat_tst_cv_14_pred, actual = seat_tst$HighSales)
 
 ```
 
-From Cross validation we know the optimal tree size seems could also be at 12, when using minimum node size of 12
+From Cross validation we know that the tree size of 12 seems to be as good as 9, let's try for fun
 ```{r}
 # 12 nodes
 seat_tree_trn_cv_12 = prune.misclass(seat_tree_trn, best = 12)
