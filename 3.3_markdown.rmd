@@ -3,6 +3,12 @@ title: '3.3 Markdown'
 output: html_document
 date: '2022-06-15'
 ---
+
+Matr.Nr.: 
+Michael 1187814,
+Lucas 01/951052,
+Nico 01/716631,
+
 # Load Dataset and required packages
 - skip first column (column number)
 ```{r}
