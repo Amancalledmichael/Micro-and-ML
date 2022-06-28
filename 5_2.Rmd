@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Problem Set 5 
+
+Problem 5.2
+
+```{r}
+library(tidyverse)
+
+#read the data
+health_raw <- read_csv("health.csv")
+
+#present first 6 rows of health data
+health_raw %>% head()
+
+dummies <- c("female","white", "hisp",  "marry", "northe" , 
+              "mwest", "south", "msa","phylim","actlim","injury","priolist", "hvgg")
+
+
+health <- health_raw
+health[, dummies] <- lapply(health[,dummies], factor)
+```
+
+1
+
+Generate an enlarged regressor set, containing the original varibles in xi and
+• all interaction terms and
+• the squared terms of the continuous variables of xi. 
+
+
+Explain, why adding squared terms of the dummy variables does not make sense
+
+It does not make sense because 1 x 1 = 1 and 0 x 0 = 0, such that squared dummies are the same as the dummies 
+
+```{r}
+# function to add interaction term between all variables of a df except the dep_var
+add_inter_terms <- function(df, dep_var, dummies = NULL){
+  vars <- colnames(df)[! colnames(df) %in% dep_var]
+  for (i in vars) {
+    for (j in vars) {
+      if (i != j ) {
+        df[paste0(i, "X", j)] <- df[i] * df[j]
+        if (i %in% dummies && j %in% dummies) {
+          df[[paste0(i, "X", j)]] <- factor(df[[paste0(i, "X", j)]])
+        } 
+      }
+    }  
+  }
+  df
+}
+
+# function to add squared terms to df for specified vars
+add_squared_terms <- function(df, vars) {
+  for (i in vars) {
+    df[paste0(i, "X", i)] <- df[i] * df[i]
+  }
+  df
+}
+
+# variables to be squared
+continuous_vars <- c("income", "educyr", "age", "famsze", "totchr")
+
+# extend dataframe
+health_extend <- add_inter_terms(health_raw, c("ltotexp", "suppins"), dummies = dummies)
+health_extend <- add_squared_terms(health_extend, continuous_vars)
+```
+
