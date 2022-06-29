@@ -9,6 +9,7 @@ Problem 5.2
 
 ```{r}
 library(tidyverse)
+library(stargazer)
 
 #read the data
 health_raw <- read_csv("health.csv")
@@ -16,7 +17,7 @@ health_raw <- read_csv("health.csv")
 #present first 6 rows of health data
 health_raw %>% head()
 
-dummies <- c("female","white", "hisp",  "marry", "northe" , 
+dummies <- c("suppins", "female","white", "hisp",  "marry", "northe" , 
               "mwest", "south", "msa","phylim","actlim","injury","priolist", "hvgg")
 
 
@@ -24,7 +25,7 @@ health <- health_raw
 health[, dummies] <- lapply(health[,dummies], factor)
 ```
 
-1
+a)
 
 Generate an enlarged regressor set, containing the original varibles in xi and
 • all interaction terms and
@@ -66,5 +67,99 @@ continuous_vars <- c("income", "educyr", "age", "famsze", "totchr")
 # extend dataframe
 health_extend <- add_inter_terms(health_raw, c("ltotexp", "suppins"), dummies = dummies)
 health_extend <- add_squared_terms(health_extend, continuous_vars)
+health_extend[,dummies] <- lapply(health_extend[,dummies], factor)
 ```
 
+
+b) Denote the vector of extended explanatory varibles by xe,i. Standardize the regressors in xi
+and xe,i, respectively.
+
+```{r}
+health[, continuous_vars] <- scale(health[, continuous_vars]) 
+
+health %>% head()
+
+
+scale_all_but <- function(df, but) {
+  for (var in colnames(df)[! colnames(df) %in% but]){
+    if (class(df[[var]]) == "numeric") {
+      df[var] <- scale(df[var])
+    }
+
+  }
+  df
+}
+
+health_extend <- scale_all_but(health_extend, c("ltotexp", "suppins"))
+health_extend %>% head()
+```
+
+c) As naive approach to estimate the ATE, estimate model 1 by OLS, using g(x) = x′β. Also
+obtain the 95% confidence bounds.
+
+```{r}
+OLS <- lm(ltotexp ~ ., data = health)
+stargazer(OLS, type = "text", ci = TRUE)
+```
+
+d) Comment on potential problems with the naive approach.
+
+It is very unlikely that the Unconfoundedness assumption holds, which in turn does not allow to indentify the ATE. 
+
+
+Lassoing
+
+e) Estimate f1 and f2 using the LASSO framework and the extended regressors xe,i. Use 5-fold
+cross-validation to tune the penalty parameter.
+
+f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% confidence
+bounds.
+
+g) Discuss similiarities and conceptual differences between choosing the optimal penalty parameter
+via cross-validation or information criteria.
+
+
+Regression Tree
+
+h) Discuss, why using the extended variables set xe,i instead of using xi is superfluous(= redundant) according
+the fundamental concept of regression trees.
+
+Regression trees include interactions and polynomial terms by construction.
+
+
+i) When growing a decision tree, you have to decide about the desired level of complexity.
+Discuss, how the following hyper-parameters affect model complexity:
+• maximum depth of the tree
+• minimum number of observations in a leaf node
+• minimum improvement of performance induced by a split
+
+They all reduce the complexity of the tree:
+
+* maximum depth: limits the tree size, seems somwhat arbitrary but can be optimized by using e.g. cross validation. 
+
+* minimum nr of obs in leaf node: Minimum number of observations that must be in each leaf, avoids overfitting.
+
+* minimum improvement of performance induced by a split: compares performance of tree before a split and after a split and then only uses the split if the performance increases by some specified amount. Makes sense, but sometimes splits that dont lead to strong improvements lead to splits with strong improvements after.
+
+j) Estimate f1 and f2 by means of a regression tree. Use a maximum depth of 5 and make sure
+that in each leaf are at least 20 observations. Set the minimum improvement necessary for a
+further split to zero.
+
+k) Briefly explain, why setting the minimum improvement for a split to zero still does not allow
+for infinite model complexity in this case.
+
+* Because we set the max depth to 5 and the minimum leaf size to 20 such that we cannot split w/o limit.
+
+l) Based on the residuals from the trees, estimate α and its 95% confidence bounds.
+
+
+Conclusions
+
+m) Compare the estimates of α that you obtain via the partial linear model estimations (Lasso/tree)
+with the naive estimate from c).
+
+n) Check, whether the confidence bounds of the three estimates of α are overlapping. Discuss
+your results. What is the value-added by estimating the partial linear model via LASSO/tree?
+
+o) Discuss disadvantages of the partial linear model approach with respect to the treatment
+effect compared to e.g. propensity score weighting.
