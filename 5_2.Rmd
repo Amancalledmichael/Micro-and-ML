@@ -10,6 +10,8 @@ Problem 5.2
 ```{r}
 library(tidyverse)
 library(stargazer)
+library(rpart)
+library(rpart.plot)
 
 #read the data
 health_raw <- read_csv("health.csv")
@@ -144,6 +146,28 @@ They all reduce the complexity of the tree:
 j) Estimate f1 and f2 by means of a regression tree. Use a maximum depth of 5 and make sure
 that in each leaf are at least 20 observations. Set the minimum improvement necessary for a
 further split to zero.
+
+```{r}
+f1 <- rpart(ltotexp ~ . -suppins , data = health,
+            minsplit = 0, minbucket = 20, maxdepth = 5, cp = 0.00)
+f2 <- rpart(suppins ~ . -ltotexp, data = health,
+            minsplit = 0, minbucket = 20, maxdepth = 5, cp = 0.00, method = "class")
+
+
+# plot f1
+rpart.plot(f1,
+           tweak = 1,# we can tweak the size of the tree
+           type = 5, # we can change the display of the decision nodes
+           extra = 1) # we can change the display information of the terminal nodes
+
+
+rpart.plot(f2,
+           tweak = 1,# we can tweak the size of the tree
+           type = 5, # we can change the display of the decision nodes
+           extra = 1) # we can change the display information of the terminal nodes
+
+```
+
 
 k) Briefly explain, why setting the minimum improvement for a split to zero still does not allow
 for infinite model complexity in this case.
