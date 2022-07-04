@@ -44,7 +44,7 @@ add_inter_terms <- function(df, dep_var, dummies = NULL){
   vars <- colnames(df)[! colnames(df) %in% dep_var]
   for (i in vars) {
     for (j in vars) {
-      if (i != j ) {
+      if (i < j ) {
         df[paste0(i, "X", j)] <- df[i] * df[j]
         if (i %in% dummies && j %in% dummies) {
           df[[paste0(i, "X", j)]] <- factor(df[[paste0(i, "X", j)]])
