@@ -118,22 +118,51 @@ cross-validation to tune the penalty parameter.
 ```{r}
 # install.packages("glmnet")
 library(glmnet)
-
+set.seed(1887)
 # dataframes as matrices (throw out NAs)
 x <- data.matrix((health_extend[complete.cases(health_extend), ! names(health_extend) %in% c("ltotexp", "suppins")]))
 ltotexp <- data.matrix(health_extend[complete.cases(health_extend), "ltotexp"])
+suppins <- data.matrix(health_extend[complete.cases(health_extend), "suppins"])
 
-cv_f1 <- cv.glmnet(x = x, y = ltotexp, alpha  = 1, nfolds = 5)
+# find best lambdas
+lambdas <- 10^seq(2, -3, by = -.1)
+
+cv_f1 <- cv.glmnet(x = x, y = ltotexp, alpha  = 1, nfolds = 5, standardize = F)
 best_lambda_f1 <- cv_f1$lambda.min
 best_lambda_f1
-
 plot(cv_f1)
+
+cv_f2 <- cv.glmnet(x = x, y = suppins, alpha  = 1, nfolds = 5, family = "binomial")
+best_lambda_f2 <- cv_f2$lambda.min
+best_lambda_f2
+plot(cv_f2)
+
+# Estimate LASSOs
+lasso_f1 <- glmnet(x = x, y = ltotexp, alpha = 1, lambda = best_lambda_f1)
+coef(lasso_f1)
+
+lasso_f2 <- glmnet(x = x, y = suppins, alpha = 1, lambda = best_lambda_f2)
+coef(lasso_f2)
 ```
 
 
 
 f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% confidence
 bounds.
+
+```{r}
+# predicted values from LASSO estimates
+predicted_ltotexp <- predict(lasso_f1, newx = x)
+residuals_ltotexp <- ltotexp - predicted_ltotexp
+
+predicted_suppins <- predict(lasso_f2, newx = x)
+residuals_suppins <- suppins - predicted_suppins
+
+# OLS of residuals from ltotexp on residuals from suppins
+alpha_lasso <- lm(residuals_ltotexp ~ residuals_suppins)
+summary(alpha_lasso)
+```
+
 
 g) Discuss similiarities and conceptual differences between choosing the optimal penalty parameter
 via cross-validation or information criteria.
