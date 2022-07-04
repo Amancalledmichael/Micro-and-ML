@@ -93,6 +93,7 @@ scale_all_but <- function(df, but) {
 }
 
 health_extend <- scale_all_but(health_extend, c("ltotexp", "suppins"))
+health <- scale_all_but(health, c("ltotexp", "suppins"))
 health_extend %>% head()
 ```
 
@@ -106,13 +107,30 @@ stargazer(OLS, type = "text", ci = TRUE)
 
 d) Comment on potential problems with the naive approach.
 
-It is very unlikely that the Unconfoundedness assumption holds, which in turn does not allow to indentify the ATE. 
+It is very unlikely that the Unconfoundedness assumption holds, which in turn does not allow to indentify the ATE. Further, the functional form might be misspecified because interaction terms and non-linear effects are not included in the regression.
 
 
 Lassoing
 
-e) Estimate f1 and f2 using the LASSO framework and the extended regressors xe,i. Use 5-fold
+e) Estimate f1 and f2 using the LASSO framework and the extended regressors $x_{e,i}$. Use 5-fold
 cross-validation to tune the penalty parameter.
+
+```{r}
+# install.packages("glmnet")
+library(glmnet)
+
+# dataframes as matrices (throw out NAs)
+x <- data.matrix((health_extend[complete.cases(health_extend), ! names(health_extend) %in% c("ltotexp", "suppins")]))
+ltotexp <- data.matrix(health_extend[complete.cases(health_extend), "ltotexp"])
+
+cv_f1 <- cv.glmnet(x = x, y = ltotexp, alpha  = 1, nfolds = 5)
+best_lambda_f1 <- cv_f1$lambda.min
+best_lambda_f1
+
+plot(cv_f1)
+```
+
+
 
 f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% confidence
 bounds.
