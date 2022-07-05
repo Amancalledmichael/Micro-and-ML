@@ -98,7 +98,8 @@ __c) As naive approach to estimate the ATE, estimate model 1 by OLS, using $g(x)
 
 ```{r}
 OLS <- lm(ltotexp ~ ., data = health)
-stargazer(OLS, type = "text", ci = TRUE)
+stargazer(OLS, type = "text", keep = "suppins1", ci = TRUE,
+          omit.stat = "all")
 ```
 
 __d) Comment on potential problems with the naive approach.__
@@ -117,7 +118,7 @@ set.seed(1887)
 # dataframes as matrices (throw out NAs)
 x <- data.matrix((health_extend[complete.cases(health_extend), ! names(health_extend) %in% c("ltotexp", "suppins")]))
 ltotexp <- data.matrix(health_extend[complete.cases(health_extend), "ltotexp"])
-suppins <- data.matrix(health_extend[complete.cases(health_extend), "suppins"])
+suppins <- data.matrix(health_extend[complete.cases(health_extend), "suppins"]) - 1
 
 # find best lambdas
 lambdas <- 10^seq(2, -3, by = -.1)
@@ -136,7 +137,7 @@ plot(cv_f2)
 lasso_f1 <- glmnet(x = x, y = ltotexp, alpha = 1, lambda = best_lambda_f1)
 coef(lasso_f1)
 
-lasso_f2 <- glmnet(x = x, y = suppins, alpha = 1, lambda = best_lambda_f2)
+lasso_f2 <- glmnet(x = x, y = suppins, alpha = 1, lambda = best_lambda_f2, family = "binomial")
 coef(lasso_f2)
 ```
 
@@ -149,12 +150,13 @@ __f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% 
 predicted_ltotexp <- predict(lasso_f1, newx = x)
 residuals_ltotexp <- ltotexp - predicted_ltotexp
 
-predicted_suppins <- predict(lasso_f2, newx = x)
-residuals_suppins <- suppins - predicted_suppins
+predicted_suppins <- predict(lasso_f2, newx = x, type = "class")
+residuals_suppins <- suppins - as.double(predicted_suppins)
 
 # OLS of residuals from ltotexp on residuals from suppins
 alpha_lasso <- lm(residuals_ltotexp ~ residuals_suppins)
-summary(alpha_lasso)
+stargazer(alpha_lasso, type = "text", keep = "residuals_suppins", ci = TRUE,
+          omit.stat = "all")
 ```
 
 
@@ -199,20 +201,22 @@ They all reduce the complexity of the tree:
 __j) Estimate f1 and f2 by means of a regression tree. Use a maximum depth of 5 and make sure that in each leaf are at least 20 observations. Set the minimum improvement necessary for a further split to zero.__
 
 ```{r}
-f1 <- rpart(ltotexp ~ . -suppins , data = health,
-            minsplit = 0, minbucket = 20, maxdepth = 5, cp = 0.00)
-f2 <- rpart(suppins ~ . -ltotexp, data = health,
+tree_f1 <- rpart(ltotexp ~ . -suppins , data = health,
+            minsplit = 0, minbucket = 20, maxdepth = 5, cp = 0.00, xval = 0)
+
+
+tree_f2 <- rpart(suppins ~ . -ltotexp, data = health,
             minsplit = 0, minbucket = 20, maxdepth = 5, cp = 0.00, method = "class")
 
 
 # plot f1
-rpart.plot(f1,
+rpart.plot(tree_f1,
            tweak = 1,# we can tweak the size of the tree
            type = 5, # we can change the display of the decision nodes
            extra = 1) # we can change the display information of the terminal nodes
 
 
-rpart.plot(f2,
+rpart.plot(tree_f2,
            tweak = 1,# we can tweak the size of the tree
            type = 5, # we can change the display of the decision nodes
            extra = 1) # we can change the display information of the terminal nodes
@@ -225,6 +229,15 @@ __k) Briefly explain, why setting the minimum improvement for a split to zero st
 * Because we set the max depth to 5 and the minimum leaf size to 20 such that we cannot split w/o limit.
 
 __l) Based on the residuals from the trees, estimate α and its 95% confidence bounds.__
+
+```{r}
+residuals_f1_tree <- residuals(tree_f1)
+residuals_f2_tree <-  as.double(health$suppins) - as.double(predict(tree_f2, select(health, -suppins), type = "class"))
+
+alpha_tree <- lm(residuals_f1_tree ~ residuals_f2_tree)
+stargazer(alpha_tree, type = "text", keep = "residuals_f2_tree", ci = TRUE,
+          omit.stat = "all")
+```
 
 
 ### Conclusions
