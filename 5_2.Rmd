@@ -170,11 +170,15 @@ via cross-validation or information criteria.
 Both aim at finding the optimal penalty parameter, to minimize the test error.
 
 Cross-Validation:
+
 * directly estimates test error
+
 * depends on splits
 
 Information Criteria:
+
 * indirectly estimates test error
+
 * uses adjustments to the training error to account for bias due to overfitting
 
 Regression Tree
