@@ -97,7 +97,7 @@ health_extend %>% head()
 __c) As naive approach to estimate the ATE, estimate model 1 by OLS, using $g(x) = x_{i}′β$. Also obtain the 95% confidence bounds.__
 
 ```{r}
-OLS <- lm(ltotexp ~ ., data = health)
+OLS <- lm(ltotexp ~ 0 + ., data = health)
 stargazer(OLS, type = "text", keep = "suppins1", ci = TRUE,
           omit.stat = "all")
 ```
@@ -146,6 +146,10 @@ coef(lasso_f2)
 __f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% confidence bounds.__
 
 ```{r}
+# robust standard errors
+# install.packages("sandwich")
+library(sandwich)
+
 # predicted values from LASSO estimates
 predicted_ltotexp <- predict(lasso_f1, newx = x)
 residuals_ltotexp <- ltotexp - predicted_ltotexp
@@ -154,7 +158,11 @@ predicted_suppins <- predict(lasso_f2, newx = x, type = "class")
 residuals_suppins <- suppins - as.double(predicted_suppins)
 
 # OLS of residuals from ltotexp on residuals from suppins
-alpha_lasso <- lm(residuals_ltotexp ~ residuals_suppins)
+alpha_lasso <- lm(residuals_ltotexp ~ 0 + residuals_suppins)
+
+# robust variance-covariance matrix
+vcov_lasso <- vcovHC(alpha_lasso, type = "HC")
+
 stargazer(alpha_lasso, type = "text", keep = "residuals_suppins", ci = TRUE,
           omit.stat = "all")
 ```
@@ -181,7 +189,7 @@ Information Criteria:
 
 __h) Discuss, why using the extended variables set $x_{e,i}$ instead of using $x_{i}$ is superfluous(= redundant) according the fundamental concept of regression trees.__
 
-Regression trees include interactions and polynomial terms by construction.
+Regression trees include interactions and polynomial terms by construction. 
 
 
 __i) When growing a decision tree, you have to decide about the desired level of complexity.
@@ -234,7 +242,9 @@ __l) Based on the residuals from the trees, estimate α and its 95% confidence b
 residuals_f1_tree <- residuals(tree_f1)
 residuals_f2_tree <-  as.double(health$suppins) - as.double(predict(tree_f2, select(health, -suppins), type = "class"))
 
-alpha_tree <- lm(residuals_f1_tree ~ residuals_f2_tree)
+alpha_tree <- lm(residuals_f1_tree ~ 0 + residuals_f2_tree)
+vcov_tree <- vcovHC(alpha_tree, type = "HC0")
+
 stargazer(alpha_tree, type = "text", keep = "residuals_f2_tree", ci = TRUE,
           omit.stat = "all")
 ```
