@@ -97,7 +97,7 @@ health_extend %>% head()
 __c) As naive approach to estimate the ATE, estimate model 1 by OLS, using $g(x) = x_{i}′β$. Also obtain the 95% confidence bounds.__
 
 ```{r}
-OLS <- lm(ltotexp ~ 0 + ., data = health)
+OLS <- lm(ltotexp ~ ., data = health)
 stargazer(OLS, type = "text", keep = "suppins1", ci = TRUE,
           omit.stat = "all")
 ```
