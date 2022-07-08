@@ -160,10 +160,8 @@ residuals_suppins <- suppins - as.double(predicted_suppins)
 # OLS of residuals from ltotexp on residuals from suppins
 alpha_lasso <- lm(residuals_ltotexp ~ 0 + residuals_suppins)
 
-alpha_lasso$coefficients[["residuals_suppins"]]
+
 # robust variance-covariance matrix
-vcov_lasso <- vcovHC(alpha_lasso, type = "HC")
-vcov_lasso[[1]]
 
 calc_CI <- function(coef, Variance, n) {
 		up_bound <- coef + 1.96 * sqrt(Variance/n)
@@ -172,10 +170,17 @@ calc_CI <- function(coef, Variance, n) {
 		        upper_bound = up_bound)
 }
 
-CI_lasso <- calc_CI(alpha_lasso$coefficients[["residuals_suppins"]], vcov_lasso[[1]], nrow(health_extend))
+V <- function(residuals_D, residuals_OLS, n) {
+  (1 / ((n/(n-1)) * mean(residuals_D ^ 2))) * (n/(n-1)) * mean(residuals_OLS ^ 2 * residuals_D ^ 2) * (1 / ((n/(n-1)) * mean(residuals_D ^ 2)))
+}
 
-stargazer(alpha_lasso, type = "text", keep = "residuals_suppins", ci = TRUE,
-          omit.stat = "all")
+variance_lasso <- V(residuals_suppins, alpha_lasso$residuals, nrow(health_extend))
+
+CI_lasso <- calc_CI(alpha_lasso$coefficients[["residuals_suppins"]], variance_lasso, nrow(health_extend))
+
+alpha_lasso$coefficients[["residuals_suppins"]]
+CI_lasso
+
 ```
 
 
@@ -254,10 +259,12 @@ residuals_f1_tree <- residuals(tree_f1)
 residuals_f2_tree <-  as.double(health$suppins) - as.double(predict(tree_f2, select(health, -suppins), type = "class"))
 
 alpha_tree <- lm(residuals_f1_tree ~ 0 + residuals_f2_tree)
-vcov_tree <- vcovHC(alpha_tree, type = "HC0")
 
-stargazer(alpha_tree, type = "text", keep = "residuals_f2_tree", ci = TRUE,
-          omit.stat = "all")
+variance_tree <- V(residuals_f1_tree, alpha_tree$residuals, nrow(health))
+CI_tree <- calc_CI(alpha_tree$coefficients[[1]], variance_tree, nrow(health))
+
+alpha_tree$coefficients
+CI_tree
 ```
 
 
