@@ -160,8 +160,19 @@ residuals_suppins <- suppins - as.double(predicted_suppins)
 # OLS of residuals from ltotexp on residuals from suppins
 alpha_lasso <- lm(residuals_ltotexp ~ 0 + residuals_suppins)
 
+alpha_lasso$coefficients[["residuals_suppins"]]
 # robust variance-covariance matrix
 vcov_lasso <- vcovHC(alpha_lasso, type = "HC")
+vcov_lasso[[1]]
+
+calc_CI <- function(coef, Variance, n) {
+		up_bound <- coef + 1.96 * sqrt(Variance/n)
+		low_bound <- coef - 1.96 * sqrt(Variance/n)
+		tibble(lower_bound = low_bound,
+		        upper_bound = up_bound)
+}
+
+CI_lasso <- calc_CI(alpha_lasso$coefficients[["residuals_suppins"]], vcov_lasso[[1]], nrow(health_extend))
 
 stargazer(alpha_lasso, type = "text", keep = "residuals_suppins", ci = TRUE,
           omit.stat = "all")
