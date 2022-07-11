@@ -1,6 +1,10 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+  pdf_document: default
 ---
 
 # Problem Set 5 
@@ -23,7 +27,7 @@ dummies <- c("suppins", "female","white", "hisp",  "marry", "northe" ,
               "mwest", "south", "msa","phylim","actlim","injury","priolist", "hvgg")
 
 
-health <- health_raw
+health <- na.omit(health_raw)
 health[, dummies] <- lapply(health[,dummies], factor)
 ```
 
@@ -68,6 +72,10 @@ continuous_vars <- c("income", "educyr", "age", "famsze", "totchr")
 health_extend <- add_inter_terms(health_raw, c("ltotexp", "suppins"), dummies = dummies)
 health_extend <- add_squared_terms(health_extend, continuous_vars)
 health_extend[,dummies] <- lapply(health_extend[,dummies], factor)
+health_extend <- na.omit(health_extend)
+# interactions between regional dummies don't not make sense
+health_extend <- health_extend[, !(names(health_extend) %in% c("mwestXnorthe", "mwestXsouth",
+                                                                    "northeXsouth"))]
 ```
 
 
@@ -148,7 +156,7 @@ __f) Based on the residuals from the LASSO estiamtions, estimate α and its 95% 
 ```{r}
 # robust standard errors
 # install.packages("sandwich")
-library(sandwich)
+# library(sandwich)
 
 # predicted values from LASSO estimates
 predicted_ltotexp <- predict(lasso_f1, newx = x)
@@ -272,6 +280,29 @@ CI_tree
 
 __m) Compare the estimates of α that you obtain via the partial linear model estimations (Lasso/tree) with the naive estimate from c).__
 
+```{r}
+stargazer(OLS, type = "text", keep = "suppins1", ci = TRUE,
+          omit.stat = "all")
+
+alpha_lasso
+CI_lasso
+
+alpha_tree
+CI_tree
+```
+All coefficients are of the same order if magnitude, yet the OLS coefficient is largest, followed by the double LASSO and the double tree coefficients.
+
 __n) Check, whether the confidence bounds of the three estimates of α are overlapping. Discuss your results. What is the value-added by estimating the partial linear model via LASSO/tree?__
+Yes, the confidence bounds are overlapping. Therefore, including interaction terms and polynomials and estimating the effect using double LASSO or double trees does not yield a statistically different result than the a naive OLS without interaction terms or polynomials. 
+The value-added of estimating a partial linear model is lies in reduced noise when estimating a high-dimensional regression. Below we can see that in a naive OLS with the extended set of regressors, the confidence interval is slightly wider than in the double ML regressions.
+
+```{r}
+OLS_high <- lm(ltotexp ~ ., data = health_extend)
+stargazer(OLS_high, type = "text", keep = "suppins1", ci = TRUE,
+          omit.stat = "all")
+```
+
 
 __o) Discuss disadvantages of the partial linear model approach with respect to the treatment effect compared to e.g. propensity score weighting.__
+
+The partial linear model assumes that the effect of the treatment on the outcome is additive (and linear). These assumptions are not necessary for propensity score weighting.
