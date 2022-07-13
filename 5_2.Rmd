@@ -294,7 +294,7 @@ All coefficients are of the same order if magnitude, yet the OLS coefficient is 
 
 __n) Check, whether the confidence bounds of the three estimates of α are overlapping. Discuss your results. What is the value-added by estimating the partial linear model via LASSO/tree?__
 Yes, the confidence bounds are overlapping. Therefore, including interaction terms and polynomials and estimating the effect using double LASSO or double trees does not yield a statistically different result than the a naive OLS without interaction terms or polynomials. 
-The value-added of estimating a partial linear model is lies in reduced noise when estimating a high-dimensional regression. Below we can see that in a naive OLS with the extended set of regressors, the confidence interval is slightly wider than in the double ML regressions.
+The value-added of estimating a partial linear model lies in reduced noise when estimating a high-dimensional regression. Below we can see that in a naive OLS with the extended set of regressors, the confidence interval is slightly wider than in the double ML regressions.
 
 ```{r}
 OLS_high <- lm(ltotexp ~ ., data = health_extend)
@@ -305,4 +305,6 @@ stargazer(OLS_high, type = "text", keep = "suppins1", ci = TRUE,
 
 __o) Discuss disadvantages of the partial linear model approach with respect to the treatment effect compared to e.g. propensity score weighting.__
 
-The partial linear model assumes that the effect of the treatment on the outcome is additive (and linear). These assumptions are not necessary for propensity score weighting.
+* The partial linear model assumes that the effect of the treatment on the outcome is additive (and linear). These assumptions are not necessary for propensity score weighting.
+
+* Overfitting and regularization can lead to biased estimates, however this can be mitigated by cross fitting and orthogonalization.
