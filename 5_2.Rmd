@@ -11,6 +11,11 @@ output:
 
 # Problem 5.2
 
+Matr.Nr.: 
+Michael 1187814,
+Lucas 01/951052,
+Nico 01/716631,
+
 ```{r}
 library(tidyverse)
 library(stargazer)
